@@ -1,19 +1,5 @@
 package me.yiye;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import me.yiye.contents.BookMark;
-import me.yiye.contents.Channel;
-import me.yiye.utils.MLog;
-import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
-import me.yiye.utils.YiyeApiOfflineImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -35,6 +21,21 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import me.yiye.contents.BookMark;
+import me.yiye.contents.Channel;
+import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
+import me.yiye.utils.YiyeApiOfflineImp;
 
 public class ChannelActivity extends BaseActivity {
 	private final static String TAG = "ChannelActivity";

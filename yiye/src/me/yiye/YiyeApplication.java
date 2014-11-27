@@ -1,9 +1,5 @@
 package me.yiye;
 
-import me.yiye.contents.User;
-import me.yiye.utils.MLog;
-import me.yiye.utils.NetworkUtil;
-import me.yiye.utils.SQLManager;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -16,6 +12,11 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import me.yiye.contents.User;
+import me.yiye.utils.MLog;
+import me.yiye.utils.NetworkUtil;
+import me.yiye.utils.SQLManager;
 
 public class YiyeApplication 	extends Application{
 	

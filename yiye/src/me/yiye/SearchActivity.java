@@ -1,13 +1,5 @@
 package me.yiye;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import me.yiye.contents.ChannelSet;
-import me.yiye.utils.MLog;
-import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +20,15 @@ import android.widget.SimpleAdapter.ViewBinder;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import me.yiye.contents.ChannelSet;
+import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
 
 public class SearchActivity extends BaseActivity {
 	private static final String TAG = "SearchActivity";

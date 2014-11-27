@@ -1,18 +1,9 @@
 package me.yiye;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import me.yiye.contents.User;
-import me.yiye.utils.MLog;
-import me.yiye.utils.SQLManager;
-import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -21,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +20,13 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
 
 public class PersonalFragment extends Fragment{
 	private final static String TAG = "PersonalFragment";

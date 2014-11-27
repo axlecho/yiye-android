@@ -1,9 +1,5 @@
 package me.yiye;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +10,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.actionbarsherlock.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ResultActivity extends BaseActivity {
 	

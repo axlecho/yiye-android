@@ -1,14 +1,5 @@
 package me.yiye;
 
-import me.yiye.contents.User;
-import me.yiye.utils.MLog;
-import me.yiye.utils.SQLManager;
-import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,6 +15,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.yiye.contents.User;
+import me.yiye.utils.MLog;
+import me.yiye.utils.SQLManager;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
 
 public class LoginManagerActivity extends BaseActivity {
 	private final static String TAG = "LoginManagerActivity";

@@ -1,7 +1,5 @@
 package me.yiye;
 
-import me.yiye.customwidget.SwitchBar;
-import me.yiye.utils.MLog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +15,9 @@ import android.widget.TextView;
 
 import com.jfeinstein.jazzyviewpager.JazzyViewPager;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
+
+import me.yiye.customwidget.SwitchBar;
+import me.yiye.utils.MLog;
 
 public class MainActivity extends FragmentActivity {
 	private final static String TAG = "MainActivity";

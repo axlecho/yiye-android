@@ -1,13 +1,5 @@
 package me.yiye;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import me.yiye.contents.Channel;
-import me.yiye.utils.MLog;
-import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
-import me.yiye.utils.YiyeApiOfflineImp;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +20,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import me.yiye.contents.Channel;
+import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
+import me.yiye.utils.YiyeApiOfflineImp;
 
 public class PacketFragment extends Fragment {
 	private final static String TAG = "PacketFragment";

@@ -1,9 +1,5 @@
 package me.yiye;
 
-import me.yiye.contents.BookMark;
-import me.yiye.customwidget.ConstomWebView;
-import me.yiye.customwidget.SmoothProgressBar;
-import me.yiye.utils.MLog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +15,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import me.yiye.contents.BookMark;
+import me.yiye.customwidget.ConstomWebView;
+import me.yiye.customwidget.SmoothProgressBar;
+import me.yiye.utils.MLog;
 
 public class BookMarkActivity extends BaseActivity {
 	private final static String TAG = "BookMarkActivity";
