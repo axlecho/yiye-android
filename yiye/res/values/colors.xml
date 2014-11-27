@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- 主色 -->
+    <color name="Teal50">#e0f2f1</color>
+    <color name="Teal100">#b2dfdb</color>
+    <color name="Teal200">#80cbc4</color>
+    <color name="Teal300">#4db6ac</color>
+    <color name="Teal400">#26a69a</color>
+    <color name="Teal500">#009688</color>
+    <color name="Teal600">#00897b</color>
+    <color name="Teal700">#00796b</color>
+    <color name="Teal800">#00695c</color>
+    <color name="Teal900">#004d40</color>
+    <color name="Teala100">#a7ffeb</color>
+    <color name="Teala200">#64ffda</color>
+    <color name="Teala300">#1de9b6</color>
+    <color name="Teala700">#00bfa5</color>
+   
+      <!-- 补色 -->
+    <color name="Purple50">#f3e5f5</color>
+    <color name="Purple100">#e1bee7</color>
+    <color name="Purple200">#ce93d8</color>
+    <color name="Purple300">#ba68c8</color>
+    <color name="Purple400">#ab47bc</color>
+    <color name="Purple500">#9c27b0</color>
+    <color name="Purple600">#8e24aa</color>
+    <color name="Purple700">#7b1fa2</color>
+    <color name="Purple800">#6a1b9a</color>
+    <color name="Purple900">#4a148c</color>
+    <color name="Purplea100">#ea80fc</color>
+    <color name="Purplea200">#e040fb</color>
+    <color name="Purplea400">#d500f9</color>
+    <color name="Purplea700">#aa00ff</color>
+    
+    <!-- 灰 -->
+    <color name="Grey50">#fafafa</color>
+    <color name="Grey100">#f5f5f5</color>
+    <color name="Grey200">#eeeeee</color>
+    <color name="Grey300">#e0e0e0</color>
+    <color name="Grey400">#bdbdbd</color>
+    <color name="Grey500">#9e9e9e</color>
+    <color name="Grey600">#757575</color>
+    <color name="Grey700">#616161</color>
+    <color name="Grey800">#424242</color>
+    <color name="Grey900">#212121</color>
+    <color name="Grey1000">#000000</color>
+    
+    <!-- 黑白 -->
+    <color name="BLACK">#000000</color>
+    <color name="WHITE">#ffffff</color>
+    
+    <color name="text_normal">@color/Grey900</color>
+    <color name="activitybackgroud">@color/Grey100</color>
+    <color name="pulllistviewheaderbackgroud">@color/Grey900</color>
+</resources>

@@ -1,0 +1,7 @@
+include ':Android-PullToRefresh:library'
+include ':Android-Universal-Image-Loader:library'
+include ':JazzyViewPager:lib'
+include ':yiye'
+include ':RoundedImageView:roundedimageview:src:main'
+include ':ActionBarSherlock:actionbarsherlock'
+include ':pinned-section-listview:library'

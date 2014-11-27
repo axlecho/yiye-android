@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <com.makeramen.RoundedImageView
+        android:id="@+id/imageview_packet_item_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher" />
+
+    <View
+        android:id="@+id/view_packet_textprotectarea"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@drawable/packetitem_protectarea_style" />
+
+    <TextView
+        android:id="@+id/textview_over_item_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="3dp"
+        android:text="@string/default_packetitem_describe"
+        android:textColor="@color/Grey700"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textview_over_item_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="3dp"
+        android:text="@string/default_packetitem_newnumber_describe"
+        android:textColor="@color/Purple500"
+        android:textSize="14sp" />
+
+</FrameLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activitybackgroud"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp" >
+
+        <EditText
+            android:id="@+id/edittext_search_keyword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_search"
+            android:hint="@string/idea"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/edittext_search_keyword"
+            android:layout_margin="4dp"
+            android:layout_toRightOf="@id/edittext_search_keyword"
+            android:background="@drawable/btn_style"
+            android:text="@string/seach_describe"
+            android:textColor="@color/WHITE"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_style" />
+
+    <ListView
+        android:id="@+id/listview_search_channelsets"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/divider_style"
+        android:dividerHeight="1dp" >
+    </ListView>
+
+</LinearLayout>

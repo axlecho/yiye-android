@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/switchbar_style"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
+
+    <LinearLayout
+        android:id="@+id/view_main_switchbar_channel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageview_main_switchbar_channel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/nav_channel" 
+            android:contentDescription="@string/channelico_describe"/>
+
+        <TextView
+            android:id="@+id/textview_main_switchbar_channel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/channel_describe"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/view_main_switchbar_personal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageview_main_switchbar_personal"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/personalico_decribe"
+            android:src="@drawable/nav_personal" />
+
+        <TextView
+            android:id="@+id/textview_main_switchbar_personal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/personal_describe"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

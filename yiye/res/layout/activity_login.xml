@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activitybackgroud"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="7dp"
+        android:focusable="false"
+        android:text="@string/useremail_describe"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edittext_login_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="7dp"
+        android:focusable="true"
+        android:inputType="textEmailAddress"
+        android:singleLine="true" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="2dp"
+        android:focusable="false"
+        android:text="@string/password_describe"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edittext_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="7dp"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="9dp"
+        android:background="@color/Grey400"
+        android:focusable="false" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/btn_style"
+        android:enabled="false"
+        android:text="@string/login_describe"
+        android:textColor="@color/WHITE" />
+
+</LinearLayout>

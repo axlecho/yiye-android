@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <me.yiye.customwidget.ConstomWebView
+        android:id="@+id/webview_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <me.yiye.customwidget.SmoothProgressBar
+        android:id="@+id/progressbar_web"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="3dip"
+        android:indeterminateOnly="false"
+        android:max="100" />
+
+    <LinearLayout
+        android:id="@+id/view_bookmark_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/toolbar_style"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:id="@+id/imagebutton_bookmark_commentary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:contentDescription="@string/commentary_describe"
+            android:gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/ic_comment" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_bookmark_favour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:contentDescription="@string/favour_describe"
+            android:gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/ic_favour" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_bookmark_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:contentDescription="@string/share_describe"
+            android:gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/ic_share" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_bookmark_commentary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/activitybackgroud"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:text="@string/notdone_decribe"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/btn_bookmark_commentary_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/content_margin"
+                android:background="@drawable/btn_style"
+                android:padding="5dp"
+                android:text="@string/close"
+                android:textColor="@color/WHITE"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/item_commom_divider_style" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/notdone_decribe"
+            android:textSize="34sp" />
+
+        <include layout="@layout/item_commom_divider_style" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/commentary_describe" />
+    </LinearLayout>
+
+</FrameLayout>

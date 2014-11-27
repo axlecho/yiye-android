@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Teal500"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageview_actionbar_navicon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/actionbar_btn_style"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_action_back" />
+
+        <ImageView
+            android:id="@+id/imageview_actionbar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/actionbar_btn_style"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_discovery" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textview_actionbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/default_actionbar_title"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:textColor="@color/WHITE"
+        android:textSize="20sp" />
+
+</FrameLayout>

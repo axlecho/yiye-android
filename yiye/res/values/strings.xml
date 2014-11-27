@@ -1,0 +1,46 @@
+<resources>
+
+    <string name="app_name">一叶书签</string>
+    
+    <string name="commentary_describe">评论</string>
+    <string name="favour_describe">收藏</string>
+    <string name="good_describe">赞</string>
+    <string name="share_describe">分享</string>
+    
+    <string name="notdone_decribe">囧囧有序的施工中 ( ¯▽¯；) </string>
+    
+    <string name="close">关闭</string>
+    
+    <string name="useremail_describe">电话，邮箱地址或用户名</string>
+    <string name="password_describe">密码</string>
+    <string name="login_describe">登录</string>
+    
+    <string name="userimage_describe">用户头像</string>
+    <string name="userimage_header_describe">用户头像背景</string>
+    <string name="username_no_authentication">未登录</string>
+    
+    <string name="myfavour_describe">我的收藏</string>
+    <string name="discover_describe">发现</string>
+    <string name="about_describe">关于</string>
+    <string name="logout_describe">注销</string>
+    
+    <string name="idea">发现网络之美</string>
+    <string name="seach_describe">搜索</string>
+    
+    <string name="default_packetitem_describe">@string/app_name</string>
+    <string name="default_packetitem_newnumber_describe">0</string>
+    
+    <string name="channel_describe">频道</string>
+    <string name="channelico_describe">@string/channel_describe</string>
+    
+    <string name="personal_describe">我</string>
+    <string name="personalico_decribe">@string/personal_describe</string>
+    
+    <string name="default_actionbar_title">@string/app_name</string>
+    
+    <string name="bookmark_image_describe">链接图片</string>
+    <string name="default_bookmark_title">标题要长长长长长长长长长长长长长长长长长长长长长长长长长长长长长</string>
+    <string name="default_bookmark_uploader">上传者：axlecho</string>
+    <string name="default_bookmark_good">赞 1000</string>
+    <string name="default_bookmark_uploadtime">时间：11年11日 </string>
+</resources>
