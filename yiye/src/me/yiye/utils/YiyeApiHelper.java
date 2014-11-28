@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
+import me.yiye.contents.ChannelEx;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +15,25 @@ import android.database.Cursor;
 
 public class YiyeApiHelper {
 	private final static String TAG = "YiyeApiHelper";
-	
+
+    public static void addChannelExToChannelSet(Context context,List<ChannelEx> list,String result) {
+        ChannelEx c = new ChannelEx();
+        MLog.d(TAG, "addChannelExToChannelSet### json:" + result);
+        JSONArray channelArray = null;
+
+        try {
+            channelArray = new JSONArray(result);
+            for (int i = 0; i < channelArray.length(); i++) {
+                JSONObject o = channelArray.getJSONObject(i);
+                c = ChannelEx.buildFromJosnObject(o);
+                list.add(c);
+            }
+        } catch (JSONException e) {
+            MLog.e(TAG, "addChannelExToChannelSet### 解析json失败");
+            e.printStackTrace();
+        }
+    }
+
 	public static void addChannelToChannelSet(Context context, List<Channel> channelList, Cursor cur) {
 		Channel c = new Channel();
 		MLog.d(TAG, "addChannelToChannelSet### cursor count:" + cur.getCount());
@@ -69,4 +88,5 @@ public class YiyeApiHelper {
 			e.printStackTrace();
 		}
 	}
+
 }

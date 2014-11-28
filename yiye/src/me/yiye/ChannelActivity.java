@@ -32,6 +32,7 @@ import java.util.Locale;
 
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
+import me.yiye.contents.ChannelEx;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
@@ -39,19 +40,18 @@ import me.yiye.utils.YiyeApiOfflineImp;
 
 public class ChannelActivity extends BaseActivity {
 	private final static String TAG = "ChannelActivity";
-	
-	private static Channel channel;
-	
 	private ChannelAdapter bookMarkListViewAdapter;
-	
 	private ListView bookMarkListView;
 	private PullToRefreshListView pullableView;
+
+    private static String title = null;
+    private static String channelid = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_channel);
-		initActionbar(channel.name);
+		initActionbar(title);
 		initChannelListView();
 	}
 
@@ -80,10 +80,7 @@ public class ChannelActivity extends BaseActivity {
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
 		
 		freshdata(new YiyeApiOfflineImp(this));
-		
-		// 添加列表最下一项的分割线
-		// View v = View.inflate(this, R.layout.item_commom_divider_style, null);
-		// bookMarkListView.addFooterView(v);
+        // freshdata(new YiyeApiImp(this));
 	}
 
 	private class ChannelAdapter extends BaseAdapter {
@@ -154,7 +151,7 @@ public class ChannelActivity extends BaseActivity {
 			uploadTimeTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploadtime);
 			
 			DateFormat fmt= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.CHINA);
-			DateFormat fmt2 = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+			DateFormat fmt2 = new SimpleDateFormat("MM-dd",Locale.CHINA);
 			String timeString =  b.postTime;
 			try {
 				Date time = fmt.parse(b.postTime);
@@ -166,7 +163,7 @@ public class ChannelActivity extends BaseActivity {
 			ssb = new SpannableStringBuilder();
 			ssb.append('\uFFFC');
 			ssb.setSpan(new ImageSpan(ChannelActivity.this,R.drawable.ic_clock), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			ssb.append(timeString);
+			ssb.append(" " +   timeString);
 			uploadTimeTextView.setText(ssb);
 			return v;
 		}
@@ -184,17 +181,24 @@ public class ChannelActivity extends BaseActivity {
 	}
 
 	public static void launch(Context context, Channel channel) {
-		ChannelActivity.channel = channel;
+		title = channel.name;
+        channelid = channel.channelId;
 		launch(context);
 	}
 
+    public static void launch(Context context,ChannelEx channel) {
+        title = channel.name;
+        channelid = channel.id;
+        launch(context);
+    }
+
 	private void freshdata(final YiyeApi api) {
-		
+
 		// 获取书签数据
 		new AsyncTask<Void, Void, List<BookMark>>() {
 			@Override
 			protected List<BookMark> doInBackground(Void... v) {
-				List<BookMark> ret = api.getBookMarksByChannel(channel);
+				List<BookMark> ret = api.getBookMarksByChannelId(channelid);
 				if(ret == null) {
 					cancel(false); // 网络异常 跳到onCancelled处理异常
 				}

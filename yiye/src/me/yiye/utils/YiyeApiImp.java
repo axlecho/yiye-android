@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.yiye.contents.BookMark;
 import me.yiye.contents.Channel;
+import me.yiye.contents.ChannelEx;
 import me.yiye.contents.ChannelSet;
 import me.yiye.contents.User;
 
@@ -20,7 +21,9 @@ public class YiyeApiImp implements YiyeApi{
 	
 	private final static String TAG = "YiyeApiImp";
 	private Context context;
-	
+	private String errorString;
+
+
 	public YiyeApiImp(Context context) {
 		this.context = context;
 	}
@@ -52,30 +55,30 @@ public class YiyeApiImp implements YiyeApi{
 		return null;
 	}
 
-	@Override
-	public List<BookMark> getBookMarksByChannel(Channel channel) {
-		
-		String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL + channel.channelId, "");
-		if(ret== null) {
-			MLog.e(TAG, "getBookMarksByChannel### network return null");
-			return null;
-		}
-		
-		List<BookMark> bookmarkList = new ArrayList<BookMark>();
-		
-		MLog.d(TAG, "getBookMarksByChannel### ret:" + ret);
-		try {
-			JSONObject o = new JSONObject(ret);
-			JSONArray list = o.getJSONArray("list");
-			MLog.d(TAG, "getBookMarksByChannel### " + list.toString());
-			YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, list.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return bookmarkList;
-	}
 
-	@Override
+    @Override
+    public List<BookMark> getBookMarksByChannelId(String channelId) {
+        String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL + channelId, "");
+        if(ret== null) {
+            MLog.e(TAG, "getBookMarksByChannel### network return null");
+            return null;
+        }
+
+        List<BookMark> bookmarkList = new ArrayList<BookMark>();
+
+        MLog.d(TAG, "getBookMarksByChannel### ret:" + ret);
+        try {
+            JSONObject o = new JSONObject(ret);
+            JSONArray list = o.getJSONArray("list");
+            MLog.d(TAG, "getBookMarksByChannel### " + list.toString());
+            YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, list.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return bookmarkList;
+    }
+
+    @Override
 	public String login(String email, String keyword) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("email", email));
@@ -87,20 +90,56 @@ public class YiyeApiImp implements YiyeApi{
 	public String logout() {
 		return NetworkUtil.get(context,YiyeApi.TESTHOST,YiyeApi.LOGOUT);
 	}
-	
+
+
 	@Override
 	public String getUserInfo() {
 		return NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.USERINFO);
 	}
 
-	@Override
+    @Override
+    public List<ChannelEx> search(String keyword) {
+        String ret = NetworkUtil.get(context,YiyeApi.TESTHOST,YiyeApi.DISCOVERY + "?keyword=" + keyword);
+        if(ret == null) {
+            MLog.e(TAG,"search### return null");
+            return null;
+        }
+        MLog.d(TAG, "getBookedChannels###network ret:" + ret);
+
+        String dataString = null;
+        try {
+            JSONObject o = new JSONObject(ret);
+            String resultString = o.getString("message");
+            if(!resultString.equals("ok")) {
+                errorString = resultString;
+            } else {
+                dataString = o.getString("data");
+                MLog.d(TAG, "search### " + dataString);
+            }
+        } catch (JSONException e) {
+            errorString = "解析json出错";
+            e.printStackTrace();
+        }
+
+        if(dataString == null) {
+            return null;
+        }
+        List<ChannelEx> foundChannels = new ArrayList<ChannelEx>();
+        YiyeApiHelper.addChannelExToChannelSet(context, foundChannels, dataString);
+        return foundChannels;
+    }
+
+    @Override
 	public boolean isOnline(User user) {
 		String ret = login(user.email,user.password);
 		return (ret == null || ret.endsWith("error")? true : false);
 	}
 
-	@Override
-	public String getError() {
-		return NetworkUtil.getError();
-	}
+    @Override
+    public String getError() {
+        String ret = errorString;
+        errorString = null;
+        return ret != null ? ret : NetworkUtil.getError();
+    }
+
 }

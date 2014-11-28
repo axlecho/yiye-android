@@ -81,6 +81,7 @@ public class PacketFragment extends Fragment {
 		
 		// 加载离线数据
 		freshdata(new YiyeApiOfflineImp(this.getActivity()));
+        // freshdata(new YiyeApiImp(this.getActivity()));
 	}
 	
 	class ChannelsGridAdapter extends BaseAdapter {

@@ -146,9 +146,9 @@ public class SearchActivity extends BaseActivity {
 	}
 
 	private void doSearch() {
-		String content = searchEditText.getText().toString();
-		MLog.d(TAG, "onKey### search edit content:" + content);
-		ResultActivity.launch(SearchActivity.this, content);
+		String keyword = searchEditText.getText().toString();
+		MLog.d(TAG, "onKey### search edit content:" + keyword);
+		ResultActivity.launch(SearchActivity.this, keyword);
 	}
 	
 	@Override
