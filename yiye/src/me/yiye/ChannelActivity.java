@@ -47,6 +47,7 @@ public class ChannelActivity extends BaseActivity {
     private static String title = null;
     private static String channelid = null;
 
+    private View emptyInfoView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,7 +79,8 @@ public class ChannelActivity extends BaseActivity {
 		
 		bookMarkListViewAdapter = new ChannelAdapter(this);
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
-		
+
+        emptyInfoView = findViewById(R.id.textview_channel_emptyinfo);
 		freshdata(new YiyeApiOfflineImp(this));
         // freshdata(new YiyeApiImp(this));
 	}
@@ -162,8 +164,8 @@ public class ChannelActivity extends BaseActivity {
 			
 			ssb = new SpannableStringBuilder();
 			ssb.append('\uFFFC');
-			ssb.setSpan(new ImageSpan(ChannelActivity.this,R.drawable.ic_clock), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			ssb.append(" " +   timeString);
+			ssb.setSpan(new ImageSpan(ChannelActivity.this, R.drawable.ic_clock), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			ssb.append(" " + timeString);
 			uploadTimeTextView.setText(ssb);
 			return v;
 		}
@@ -210,9 +212,14 @@ public class ChannelActivity extends BaseActivity {
 				super.onPostExecute(list);
 				MLog.d(TAG, "onPostExecute### get the data of bookmark.");
 
-				bookMarkListViewAdapter.setData(list);
-				bookMarkListViewAdapter.notifyDataSetChanged();
-				pullableView.onRefreshComplete();
+                if(list.size() == 0) {
+                    emptyInfoView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyInfoView.setVisibility(View.GONE);
+                    bookMarkListViewAdapter.setData(list);
+                    bookMarkListViewAdapter.notifyDataSetChanged();
+                }
+                pullableView.onRefreshComplete();
 			}
 
 			@Override
