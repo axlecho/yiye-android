@@ -82,7 +82,7 @@ public class ChannelActivity extends BaseActivity {
 
         emptyInfoView = findViewById(R.id.textview_channel_emptyinfo);
 		freshdata(new YiyeApiOfflineImp(this));
-        // freshdata(new YiyeApiImp(this));
+        freshdata(new YiyeApiImp(this));
 	}
 
 	private class ChannelAdapter extends BaseAdapter {
@@ -211,13 +211,13 @@ public class ChannelActivity extends BaseActivity {
 			protected void onPostExecute(List<BookMark> list) {
 				super.onPostExecute(list);
 				MLog.d(TAG, "onPostExecute### get the data of bookmark.");
+                bookMarkListViewAdapter.setData(list);
+                bookMarkListViewAdapter.notifyDataSetChanged();
 
                 if(list.size() == 0) {
                     emptyInfoView.setVisibility(View.VISIBLE);
                 } else {
                     emptyInfoView.setVisibility(View.GONE);
-                    bookMarkListViewAdapter.setData(list);
-                    bookMarkListViewAdapter.notifyDataSetChanged();
                 }
                 pullableView.onRefreshComplete();
 			}

@@ -81,7 +81,7 @@ public class PacketFragment extends Fragment {
 		
 		// 加载离线数据
 		freshdata(new YiyeApiOfflineImp(this.getActivity()));
-        // freshdata(new YiyeApiImp(this.getActivity()));
+        freshdata(new YiyeApiImp(this.getActivity()));
 	}
 	
 	class ChannelsGridAdapter extends BaseAdapter {
@@ -127,7 +127,7 @@ public class PacketFragment extends Fragment {
 			channelLogoImageView = (RoundedImageView) v.findViewById(R.id.imageview_packet_item_background);
 			channelLogoImageView.setAdjustViewBounds(false);
 			channelLogoImageView.setCornerRadius(4.0f);
-			ImageLoader.getInstance().displayImage(c.logo, channelLogoImageView,imageoptions);
+			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.logo, channelLogoImageView,imageoptions);
 			
 			channelNameTextView = (TextView) v.findViewById(R.id.textview_over_item_notice);
 			channelNameTextView.setText(c.name);
