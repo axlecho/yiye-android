@@ -44,7 +44,9 @@ public class PacketFragment extends Fragment {
 	private ChannelsGridAdapter dataadpter;
 	private PullToRefreshGridView pullableView;
 	private GridView mainDataGridView;
-	
+
+
+    private static AsyncTask freshAsyncTask;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -80,8 +82,17 @@ public class PacketFragment extends Fragment {
 		});
 		
 		// 加载离线数据
-		freshdata(new YiyeApiOfflineImp(this.getActivity()));
-        freshdata(new YiyeApiImp(this.getActivity()));
+        MLog.i(TAG,"init### load data offline");
+		freshdata(new YiyeApiOfflineImp(this.getActivity()),new OnFreshCompleteListener() {
+            @Override
+            public void freshComplete(List<Channel> list) {
+                if(list.size() == 0) { // 如果离线没有数据 ，加载网络数据
+                    MLog.i(TAG,"freshComplete### load data from network");
+                    freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
+                }
+
+            }
+        });
 	}
 	
 	class ChannelsGridAdapter extends BaseAdapter {
@@ -146,9 +157,19 @@ public class PacketFragment extends Fragment {
 		}
 	}
 
-	private void freshdata(final YiyeApi api) {
+    private void freshdata(final  YiyeApi api) {
+        freshdata(api,null);
+    }
+
+	private void freshdata(final YiyeApi api, final OnFreshCompleteListener listener) {
+
 		// 获取频道数据
-		new AsyncTask<Void, Void,  List<Channel>>() {
+        if(freshAsyncTask != null) {
+            MLog.d(TAG,"freshdata### There been a fresh task.");
+            return;
+        }
+
+        freshAsyncTask = new AsyncTask<Void, Void,  List<Channel>>() {
 			@Override
 			protected List<Channel> doInBackground(Void... v) {
 				List<Channel> ret = api.getBookedChannels();
@@ -164,6 +185,10 @@ public class PacketFragment extends Fragment {
 				dataadpter.setData(list);
 				dataadpter.notifyDataSetChanged();
 				pullableView.onRefreshComplete();
+                freshAsyncTask = null;
+                if(listener != null) {
+                    listener.freshComplete(list);
+                }
 				super.onPostExecute(list);
 			}
 			
@@ -171,10 +196,22 @@ public class PacketFragment extends Fragment {
 			protected void onCancelled() {
 				Toast.makeText(PacketFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
 				pullableView.onRefreshComplete();
+                freshAsyncTask = null;
 				super.onCancelled();
 			}
 		}.execute();
 	}
-	
-	
+
+    private interface OnFreshCompleteListener{
+        public void freshComplete(List<Channel> list);
+    }
+
+    @Override
+    public void onStop() {
+        if(freshAsyncTask != null) {
+            MLog.i(TAG,"onStop### cancel the fresh task");
+            freshAsyncTask.cancel(true);
+        }
+        super.onStop();
+    }
 }

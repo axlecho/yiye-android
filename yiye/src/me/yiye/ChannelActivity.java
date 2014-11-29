@@ -48,6 +48,7 @@ public class ChannelActivity extends BaseActivity {
     private static String channelid = null;
 
     private View emptyInfoView;
+    private static AsyncTask freshAsyncTask;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +67,7 @@ public class ChannelActivity extends BaseActivity {
 				freshdata(new YiyeApiImp(ChannelActivity.this));
 			}
 		});
-		
+
 		bookMarkListView = pullableView.getRefreshableView();
 		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
@@ -76,13 +77,22 @@ public class ChannelActivity extends BaseActivity {
 					BookMarkActivity.launch(ChannelActivity.this, bookMarkListViewAdapter.getItem(pos - 1));
 			}
 		});
-		
+
 		bookMarkListViewAdapter = new ChannelAdapter(this);
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
 
         emptyInfoView = findViewById(R.id.textview_channel_emptyinfo);
-		freshdata(new YiyeApiOfflineImp(this));
-        freshdata(new YiyeApiImp(this));
+
+        MLog.i(TAG,"init### load data offline");
+		freshdata(new YiyeApiOfflineImp(this),new OnFreshCompleteListener() {
+            @Override
+            public void freshComplete(List<BookMark> list) {
+                if(list.size() == 0) { // 如果离线没有数据 ，加载网络数据
+                    MLog.i(TAG,"freshComplete### load data from network");
+                    freshdata(new YiyeApiImp(ChannelActivity.this));
+                }
+            }
+        });
 	}
 
 	private class ChannelAdapter extends BaseAdapter {
@@ -123,7 +133,7 @@ public class ChannelActivity extends BaseActivity {
 			TextView praiseTextView;
 			TextView uploaderTextView;
 			TextView uploadTimeTextView;
-			
+
 			contentImageView = (ImageView) v.findViewById(R.id.imageview_bookmark_item);
 			contentImageView.setAdjustViewBounds(false);
 			contentImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -149,9 +159,9 @@ public class ChannelActivity extends BaseActivity {
 			ssb.append(" " + b.postUser);
 			uploaderTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploader);
 			uploaderTextView.setText(ssb);
-			
+
 			uploadTimeTextView = (TextView) v.findViewById(R.id.textview_bookmark_item_uploadtime);
-			
+
 			DateFormat fmt= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.CHINA);
 			DateFormat fmt2 = new SimpleDateFormat("MM-dd",Locale.CHINA);
 			String timeString =  b.postTime;
@@ -161,7 +171,7 @@ public class ChannelActivity extends BaseActivity {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 			ssb = new SpannableStringBuilder();
 			ssb.append('\uFFFC');
 			ssb.setSpan(new ImageSpan(ChannelActivity.this, R.drawable.ic_clock), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -194,40 +204,60 @@ public class ChannelActivity extends BaseActivity {
         launch(context);
     }
 
-	private void freshdata(final YiyeApi api) {
+    private void freshdata(final  YiyeApi api) {
+        freshdata(api,null);
+    }
 
-		// 获取书签数据
-		new AsyncTask<Void, Void, List<BookMark>>() {
-			@Override
-			protected List<BookMark> doInBackground(Void... v) {
-				List<BookMark> ret = api.getBookMarksByChannelId(channelid);
-				if(ret == null) {
-					cancel(false); // 网络异常 跳到onCancelled处理异常
-				}
-				return ret;
-			}
-			
-			@Override
-			protected void onPostExecute(List<BookMark> list) {
-				super.onPostExecute(list);
-				MLog.d(TAG, "onPostExecute### get the data of bookmark.");
+    private void freshdata(final YiyeApi api, final OnFreshCompleteListener listener) {
+
+        // 获取书签数据
+        new AsyncTask<Void, Void, List<BookMark>>() {
+            @Override
+            protected List<BookMark> doInBackground(Void... v) {
+                List<BookMark> ret = api.getBookMarksByChannelId(channelid);
+                if (ret == null) {
+                    cancel(false); // 网络异常 跳到onCancelled处理异常
+                }
+                return ret;
+            }
+
+            @Override
+            protected void onPostExecute(List<BookMark> list) {
+
                 bookMarkListViewAdapter.setData(list);
                 bookMarkListViewAdapter.notifyDataSetChanged();
 
-                if(list.size() == 0) {
+                if (list.size() == 0) {
                     emptyInfoView.setVisibility(View.VISIBLE);
                 } else {
                     emptyInfoView.setVisibility(View.GONE);
                 }
                 pullableView.onRefreshComplete();
-			}
+                if (listener != null) {
+                    listener.freshComplete(list);
+                }
+                super.onPostExecute(list);
+            }
 
-			@Override
-			protected void onCancelled() {
-				Toast.makeText(ChannelActivity.this, api.getError(), Toast.LENGTH_LONG).show();
-				pullableView.onRefreshComplete();
-				super.onCancelled();
-			}
-		}.execute();
-	}
+            @Override
+            protected void onCancelled() {
+                Toast.makeText(ChannelActivity.this, api.getError(), Toast.LENGTH_LONG).show();
+                pullableView.onRefreshComplete();
+                super.onCancelled();
+            }
+        }.execute();
+    }
+
+    private interface OnFreshCompleteListener{
+        public void freshComplete(List<BookMark> list);
+    }
+
+    @Override
+    public void onStop() {
+        if(freshAsyncTask != null) {
+            MLog.i(TAG,"onStop### cancel the fresh task");
+            freshAsyncTask.cancel(true);
+        }
+        super.onStop();
+    }
 }
