@@ -1,5 +1,6 @@
 package me.yiye;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initActionbar("一叶");
-		
+
 		mViewPager = (JazzyViewPager) findViewById(R.id.viewpager_main);
 //		mViewPager.setFadeEnabled(true);
 		mViewPager.setTransitionEffect(TransitionEffect.Standard);
@@ -61,6 +62,7 @@ public class MainActivity extends FragmentActivity {
 				mViewPager.setCurrentItem(1);
 			}
 		});
+
 	}
 
 
@@ -72,6 +74,10 @@ public class MainActivity extends FragmentActivity {
 		mViewPager.setCurrentItem(0,false);
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
+
+        if(YiyeApplication.user == null) {
+            mViewPager.setCurrentItem(1,false);
+        }
 		super.onStart();
 	}
 

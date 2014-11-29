@@ -21,7 +21,8 @@
         android:layout_marginLeft="@dimen/content_marginex"
         android:layout_marginTop="-45dp"
         android:contentDescription="@string/userimage_describe"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/textview_personal_username"
