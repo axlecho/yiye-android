@@ -8,5 +8,6 @@
     <!-- default drawable -->
     <item android:drawable="@drawable/bookmarkitem_shadow" />
 
+
 </selector>
 

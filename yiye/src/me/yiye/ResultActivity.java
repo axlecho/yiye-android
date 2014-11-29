@@ -131,7 +131,7 @@ public class ResultActivity extends BaseActivity {
 
             channelLogoImageView = (ImageView) v.findViewById(R.id.imageview_channel_item);
             channelLogoImageView.setAdjustViewBounds(false);
-            ImageLoader.getInstance().displayImage(c.logo, channelLogoImageView,imageoptions);
+            ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.logo, channelLogoImageView,imageoptions);
 
             channelNameTextView = (TextView) v.findViewById(R.id.textview_channel_item_title);
             channelNameTextView.setText(c.name);
