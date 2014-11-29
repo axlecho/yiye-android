@@ -64,6 +64,7 @@ public class ChannelActivity extends BaseActivity {
 
 			@Override
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                MLog.i(TAG,"onRefresh### load data from network");
 				freshdata(new YiyeApiImp(ChannelActivity.this));
 			}
 		});

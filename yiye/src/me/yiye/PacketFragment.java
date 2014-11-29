@@ -67,6 +67,7 @@ public class PacketFragment extends Fragment {
 
 			@Override
 			public void onRefresh(PullToRefreshBase<GridView> refreshView) {
+                MLog.i(TAG,"onRefresh### load data from network");
 				freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
 			}
 		});
@@ -181,7 +182,6 @@ public class PacketFragment extends Fragment {
 			
 			@Override
 			protected void onPostExecute(List<Channel> list) {
-				MLog.d(TAG, "onPostExecute### get user book channels");
 				dataadpter.setData(list);
 				dataadpter.notifyDataSetChanged();
 				pullableView.onRefreshComplete();
