@@ -2,159 +2,149 @@ package me.yiye;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.jfeinstein.jazzyviewpager.JazzyViewPager;
-import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-import me.yiye.customwidget.SwitchBar;
-import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApi;
 
 public class MainActivity extends FragmentActivity {
 
     private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
+    private final static String TAG = "MainActivity";
 
-	private final static String TAG = "MainActivity";
-	
-	private JazzyViewPager mViewPager;
-	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-	private SwitchBar mSwitchBar;
-	
-	
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		initActionbar("一叶");
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        View headerView = View.inflate(this,R.layout.view_main_drawer_header,null);
+        mDrawerList.addHeaderView(headerView);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_main_drawer_list, mPlanetTitles));
+        mDrawerList.setOnItemClickListener(new OnDrawerListItemClickListener());
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.item_main_drawer_list, mPlanetTitles));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this,mPlanetTitles[i],Toast.LENGTH_SHORT).show();
+        Fragment packetFragment = new PacketFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main, packetFragment).commit();
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+
+            /**
+             * Called when a drawer has settled in a completely closed state.
+             */
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(R.string.drawer_close);
+                invalidateOptionsMenu();
             }
-        });
 
-		mViewPager = (JazzyViewPager) findViewById(R.id.viewpager_main);
-//		mViewPager.setFadeEnabled(true);
-		mViewPager.setTransitionEffect(TransitionEffect.Standard);
-		
-		mViewPager.setOnPageChangeListener(new SimpleOnPageChangeListener() {
+            /**
+             * Called when a drawer has settled in a completely open state.
+             */
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(R.string.drawer_open);
+                invalidateOptionsMenu();
+            }
+        };
 
-			@Override
-			public void onPageSelected(int index) {
-				mSwitchBar.setSelect(index);
-			}
-		});
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        // Enabling Home button
+        getActionBar().setHomeButtonEnabled(true);
 
-		mSwitchBar = (SwitchBar) findViewById(R.id.switchbar_main);
+        // Enabling Up navigation
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        setUserInfo();
+    }
 
-		mSwitchBar.setOnClickLisener(0, new OnClickListener() {
+    public static void launch(Context context) {
+        Intent i = new Intent();
+        i.setClass(context, MainActivity.class);
+        context.startActivity(i);
+    }
 
-			@Override
-			public void onClick(View v) {
-				mViewPager.setCurrentItem(0);
-			}
-		});
-		
-		mSwitchBar.setOnClickLisener(1, new OnClickListener() {
+    private class OnDrawerListItemClickListener implements AdapterView.OnItemClickListener {
 
-			@Override
-			public void onClick(View v) {
-				mViewPager.setCurrentItem(1);
-			}
-		});
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-	}
-
-
-	// 由于Activity为Singletask启动，在登陆结束后跳转不会执行OnCreate，
-	//所以onStart里刷新数据
-	@Override
-	protected void onStart() {
-		MLog.d(TAG,"onCreate### new a pager adapter");
-		mViewPager.setCurrentItem(0,false);
-		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-		mViewPager.setAdapter(mAppSectionsPagerAdapter);
-
-        if(YiyeApplication.user == null) {
-            mViewPager.setCurrentItem(1,false);
+            int pos = i - 1; // 减去headerview
+            mDrawerLayout.closeDrawers();
+            switch (pos) {
+                case 0:
+                    break; // 首页
+                case 1:
+                    break; // 收藏
+                case 2:// 发现
+                    SearchActivity.launch(MainActivity.this);
+                    break;
+                case 3:
+                    break; // 关于
+                case 4: // 登录
+                    LoginManagerActivity.launch(MainActivity.this);
+                    break;
+            }
         }
-		super.onStart();
-	}
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
 
-	public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
-		public AppSectionsPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
-		@Override
-		public Fragment getItem(int i) {
-			switch (i) {
-			case 0:
-				return new PacketFragment();
-			default:
-				MLog.d(TAG, "getItem### new a personalfragment");
-				return new PersonalFragment();
-			}
-		}
+        return super.onOptionsItemSelected(item);
+    }
 
-		@Override
-		public int getCount() {
-			return 2;
-		}
+    private static DisplayImageOptions imageoptions = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.img_loading)
+            .showImageForEmptyUri(R.drawable.img_empty)
+            .showImageOnFail(R.drawable.img_failed)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .considerExifParams(true)
+            .build();
 
-		@Override
-		public CharSequence getPageTitle(int position) {
-			return position + "";
-		}
-		
-		@Override
-		public Object instantiateItem(ViewGroup container, final int position) {
-		    Object obj = super.instantiateItem(container, position);
-		    mViewPager.setObjectForPosition(obj, position);
-		    return obj;
-		}
-	}
-
-	public static void launch(Context context) {
-		Intent i = new Intent();
-		i.setClass(context, MainActivity.class);
-		context.startActivity(i);
-	}
-
-	// 自定义的Actionbar
-	protected void initActionbar(String title) {
-		View barview = View.inflate(this,R.layout.view_main_actionbar,null);
-		getActionBar().setCustomView(barview);
-		getActionBar().setDisplayShowCustomEnabled(true);
-		
-		// 标题
-		TextView titleTextView = (TextView) barview.findViewById(R.id.textview_actionbar_title);
-		titleTextView.setText(title);
-	}
+    private void setUserInfo() {
+        // 设置头像
+        ImageView userimageView = (ImageView) this.findViewById(R.id.imageview_personal_userimg);
+        TextView usernameTextView = (TextView) this.findViewById(R.id.textview_personal_username);
+        if (YiyeApplication.user != null) { // 若已经登陆，设置头像及姓名
+            ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + YiyeApplication.user.avatar, userimageView, imageoptions);
+            usernameTextView.setText(YiyeApplication.user.username);
+        } else {
+            userimageView.setImageResource(R.drawable.ic_launcher);
+            usernameTextView.setText(this.getResources().getString(R.string.username_no_authentication));
+        }
+    }
 }

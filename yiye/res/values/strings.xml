@@ -47,4 +47,6 @@
         <item>登录</item>
     </string-array>
 
+    <string name="drawer_open"> 一叶</string>
+    <string name="drawer_close">频道</string>
 </resources>

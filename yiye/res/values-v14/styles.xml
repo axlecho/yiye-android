@@ -27,4 +27,24 @@
         <item name="android:textSize">@dimen/actionbar_font_size</item>
     </style>
 
+
+    <!-- 主activity sytle -->
+    <style name="MainActivityTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/MainActionBarStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_drawer</item>
+    </style>
+
+    <style name="MainActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:title">@string/drawer_open</item>
+        <item name="android:background">@color/Teal500</item>
+        <item name="android:titleTextStyle">@style/MainActionBarTitleStyle</item>
+        <item name="android:icon">@android:color/transparent</item>
+    </style>
+
+    <style name="MainActionBarTitleStyle">
+        <item name="android:textColor">@color/WHITE</item>
+        <item name="android:textSize">@dimen/actionbar_font_size</item>
+        <item name="android:background">@drawable/actionbar_title_background</item>
+    </style>
 </resources>
