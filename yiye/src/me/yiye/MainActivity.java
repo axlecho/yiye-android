@@ -3,7 +3,6 @@ package me.yiye;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -12,9 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -22,7 +19,6 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -169,7 +165,7 @@ public class MainActivity extends FragmentActivity {
         ImageView userimageView = (ImageView) this.findViewById(R.id.imageview_personal_userimg);
         TextView usernameTextView = (TextView) this.findViewById(R.id.textview_personal_username);
         if (YiyeApplication.user != null) { // 若已经登陆，设置头像及姓名
-            ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + YiyeApplication.user.avatar, userimageView, imageoptions);
+            ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + YiyeApplication.user.avatar + YiyeApi.PICSCALEPARAM, userimageView, imageoptions);
             usernameTextView.setText(YiyeApplication.user.username);
         } else {
             userimageView.setImageResource(R.drawable.ic_launcher);

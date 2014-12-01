@@ -139,7 +139,7 @@ public class PacketFragment extends Fragment {
 			channelLogoImageView = (RoundedImageView) v.findViewById(R.id.imageview_packet_item_background);
 			channelLogoImageView.setAdjustViewBounds(false);
 			channelLogoImageView.setCornerRadius(4.0f);
-			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.logo, channelLogoImageView,imageoptions);
+			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.logo + YiyeApi.PICSCALEPARAM, channelLogoImageView,imageoptions);
 			
 			channelNameTextView = (TextView) v.findViewById(R.id.textview_over_item_notice);
 			channelNameTextView.setText(c.name);

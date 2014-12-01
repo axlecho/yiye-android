@@ -19,7 +19,7 @@ public interface YiyeApi {
 	public String getUserInfo();
     public List<ChannelEx> search(String keyword);
 	public boolean isOnline(User user);
-	public final static String TESTHOST = "http://pre.yiye.me:3000/";
+	public final static String TESTHOST = "http://yiye.me/";
 	public final static String BOOKEDCHANNELS = "api/channel/all";
 	public final static String LOGIN = "api/account/login";
 	public final static String LOGOUT = "api/account/logout";
@@ -28,7 +28,7 @@ public interface YiyeApi {
 	public final static String DISCOVERY = "api/discovery/";
 
 	public final static String PICCDN = "http://yiye.qiniudn.com/";
-	
+	public final static String PICSCALEPARAM = "?imageView2/0/w/400";
 	public String getError();
 	
 	public final static String ERRORNOLOGIN = "请先登录或注册";
