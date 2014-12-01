@@ -3,6 +3,7 @@ package me.yiye;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -13,17 +14,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import me.yiye.utils.YiyeApi;
 
+
 public class MainActivity extends FragmentActivity {
 
-    private String[] mPlanetTitles;
+    private List<Map<String,Object>> mMatchData;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -34,12 +45,28 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mMatchData = new ArrayList<Map<String, Object>>();
+        String[] planetTitles = getResources().getStringArray(R.array.planets_array);
+        int[] planetIco = {R.drawable.ic_drawer_home_normal,
+                R.drawable.ic_drawer_collect_normal,
+                R.drawable.ic_drawer_explore_normal,
+                R.drawable.ic_drawer_setting_normal,
+                R.drawable.ic_drawer_login_normal};
+        for(int i = 0;i < 5;i ++) {
+            HashMap<String,Object> h = new HashMap<String, Object>();
+            h.put("img",planetIco[i]);
+            h.put("text",planetTitles[i]);
+            mMatchData.add(h);
+        }
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         View headerView = View.inflate(this,R.layout.view_main_drawer_header,null);
         mDrawerList.addHeaderView(headerView);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_main_drawer_list, mPlanetTitles));
+
+        String[] from = new String[] {"img","text"};
+        int[] to = new int[] {R.id.imageview_main_drawer_ico,R.id.textview_main_drawer_text};
+        mDrawerList.setAdapter(new SimpleAdapter(this,mMatchData,R.layout.item_main_drawer_list,from,to));
         mDrawerList.setOnItemClickListener(new OnDrawerListItemClickListener());
 
         Fragment packetFragment = new PacketFragment();
@@ -130,10 +157,12 @@ public class MainActivity extends FragmentActivity {
             .showImageOnLoading(R.drawable.img_loading)
             .showImageForEmptyUri(R.drawable.img_empty)
             .showImageOnFail(R.drawable.img_failed)
-            .cacheInMemory(true)
+            .imageScaleType(ImageScaleType.EXACTLY)
+            .cacheInMemory(false)
             .cacheOnDisk(true)
             .considerExifParams(true)
             .build();
+
 
     private void setUserInfo() {
         // 设置头像

@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <!-- The main content view -->
     <FrameLayout
         android:id="@+id/fragment_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
     <!-- The navigation drawer -->
+
     <ListView
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
@@ -19,5 +20,6 @@
         android:background="@color/WHITE"
         android:choiceMode="singleChoice"
         android:divider="@drawable/divider_style"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="1dp" />
+
 </android.support.v4.widget.DrawerLayout>
