@@ -65,9 +65,6 @@ public class MainActivity extends FragmentActivity {
         mDrawerList.setAdapter(new SimpleAdapter(this,mMatchData,R.layout.item_main_drawer_list,from,to));
         mDrawerList.setOnItemClickListener(new OnDrawerListItemClickListener());
 
-        Fragment packetFragment = new PacketFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main, packetFragment).commit();
-
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
@@ -95,9 +92,19 @@ public class MainActivity extends FragmentActivity {
 
         // Enabling Up navigation
         getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initMainFragment();
         setUserInfo();
     }
 
+    private void initMainFragment() {
+        Fragment packetFragment = new PacketFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main, packetFragment).commit();
+    }
     public static void launch(Context context) {
         Intent i = new Intent();
         i.setClass(context, MainActivity.class);
