@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activitybackgroud">
+
+    <Button
+        android:layout_marginTop="100dp"
+        android:id="@+id/btn_setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/section_btn_style"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/about_describe"
+        android:textColor="@color/Grey700"
+        android:textSize="14sp" />
+</RelativeLayout>

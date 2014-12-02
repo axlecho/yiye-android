@@ -46,8 +46,8 @@ public class MainActivity extends FragmentActivity {
         int[] planetIco = {R.drawable.ic_drawer_home_normal,
                 R.drawable.ic_drawer_collect_normal,
                 R.drawable.ic_drawer_explore_normal,
-                R.drawable.ic_drawer_setting_normal,
-                R.drawable.ic_drawer_login_normal};
+                R.drawable.ic_drawer_login_normal,
+                R.drawable.ic_drawer_setting_normal};
         for (int i = 0; i < 5; i++) {
             HashMap<String, Object> h = new HashMap<String, Object>();
             h.put("img", planetIco[i]);
@@ -127,11 +127,11 @@ public class MainActivity extends FragmentActivity {
                 case 2:// 发现
                     SearchActivity.launch(MainActivity.this);
                     break;
-                case 3: // 关于
-                    AboutActivity.launch(MainActivity.this);
-                    break;
-                case 4: // 登录
+                case 3: // 登录
                     LoginManagerActivity.launch(MainActivity.this);
+                    break;
+                case 4: // 设置
+                    SettingActivity.launch(MainActivity.this);
                     break;
             }
         }

@@ -17,6 +17,7 @@
     <string name="myfavour_describe">我的收藏</string>
     <string name="discover_describe">发现</string>
     <string name="about_describe">关于</string>
+    <string name="setting_describe">设置</string>
     <string name="logout_describe">注销</string>
     <string name="idea">发现网络之美</string>
     <string name="seach_describe">搜索</string>
@@ -43,8 +44,8 @@
         <item>首页</item>
         <item>收藏</item>
         <item>发现</item>
-        <item>关于</item>
         <item>登录</item>
+        <item>设置</item>
     </string-array>
 
     <string name="drawer_open"> 一叶</string>

@@ -45,7 +45,7 @@
             android:launchMode="singleTask"
             android:theme="@style/NormalActivityTheme"></activity>
         <activity
-            android:name=".ChannelsByLabelActivity"
+            android:name=".SettingActivity"
             android:launchMode="singleTask"
             android:theme="@style/NormalActivityTheme"></activity>
         <activity
