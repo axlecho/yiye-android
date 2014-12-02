@@ -2,6 +2,7 @@ package me.yiye;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,19 +14,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleAdapter.ViewBinder;
-
-import com.actionbarsherlock.view.MenuItem;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import me.yiye.contents.ChannelSet;
+import me.yiye.contents.ChannelEx;
 import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
@@ -33,69 +29,18 @@ import me.yiye.utils.YiyeApiImp;
 public class SearchActivity extends BaseActivity {
 	private static final String TAG = "SearchActivity";
 	private EditText searchEditText;
-	private ListView channelSetsListView;
-	private List<HashMap<String,String>> channelSetsList = new ArrayList<HashMap<String,String>>();
-	private SimpleAdapter channelSetsListAdapter;
+	private ListView channelsListView;
+	private ChannelsListAdapter channelsListAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_seach);
 		initActionbar("发现");
-		initChannelSets();
 		initSearch();
+        initAllChannelList();
 	}
 	
-	private void initChannelSets() {
-		YiyeApi api = new YiyeApiImp(this);
-		final List<ChannelSet> channelsets = api.getChannelSets();
-		
-		for(ChannelSet cs: channelsets) {
-			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("img", cs.getImgurl());
-			map.put("tittle",cs.getTitle());
-			String labelsString = "";
-			for(String label:cs.getLabels()) {
-				labelsString += label + " ";
-			}
-			
-			map.put("content",labelsString);
-			channelSetsList.add(map);
-		}
-		
-		String[] from = new String[] {"img","tittle","content"};
-		int[] to = new int[] {R.id.imageview_search_item,
-				R.id.textview_search_item_title,
-				R.id.textview_search_item_content};
-		channelSetsListAdapter = new SimpleAdapter(this, channelSetsList, R.layout.item_search_style, from, to);
-		
-		ViewBinder viewBinder = new ViewBinder() {
-
-			public boolean setViewValue(View view, Object data,String textRepresentation) {
-				if (view instanceof ImageView) {
-					ImageView iv = (ImageView) view;
-					String url = (String)data;
-					ImageLoader.getInstance().displayImage(url,iv,YiyeApplication.imageoptions);
-					MLog.d(TAG, "setViewValue### imageview:" + iv.toString() + " url:" + url);
-					return true;
-				} else
-					return false;
-			}
-		};  
-		channelSetsListAdapter.setViewBinder(viewBinder);
-		
-		channelSetsListView = (ListView) this.findViewById(R.id.listview_search_channelsets);
-		channelSetsListView.setAdapter(channelSetsListAdapter);
-		channelSetsListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View v, int id,long pos) {
-				ChannelsByLabelActivity.launch(SearchActivity.this,channelsets.get(id));
-			}
-		});
-		
-		channelSetsListAdapter.notifyDataSetChanged();
-	}
 
 	private void initSearch() {
 		
@@ -145,20 +90,25 @@ public class SearchActivity extends BaseActivity {
 
 	}
 
+    private void initAllChannelList() {
+        channelsListView = (ListView) this.findViewById(R.id.listview_search_channelsets);
+        channelsListAdapter = new ChannelsListAdapter(this);
+        channelsListView.setAdapter(channelsListAdapter);
+        channelsListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
+                ChannelActivity.launch(SearchActivity.this,channelsListAdapter.getItem(pos));
+            }
+        });
+
+        freshdata(new YiyeApiImp(this));
+    }
+
 	private void doSearch() {
 		String keyword = searchEditText.getText().toString();
 		MLog.d(TAG, "onKey### search edit content:" + keyword);
 		ResultActivity.launch(SearchActivity.this, keyword);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	public static void launch(Context context) {
@@ -167,4 +117,31 @@ public class SearchActivity extends BaseActivity {
 		context.startActivity(i);
 	}
 
+    private void freshdata(final YiyeApi api) {
+        // 获取频道数据
+        new AsyncTask<Void, Void,  List<ChannelEx>>() {
+            @Override
+            protected List<ChannelEx> doInBackground(Void... words) {
+                List<ChannelEx> ret = api.getChannelByPage(1); // 服务器的页数从1开始的，真是奇葩的家伙
+                if(ret == null) {
+                    cancel(false); // 网络异常 跳到onCancelled处理异常
+                }
+                return ret;
+            }
+
+            @Override
+            protected void onPostExecute(List<ChannelEx> list) {
+                MLog.d(TAG, "onPostExecute### get channels");
+                channelsListAdapter.setData(list);
+                channelsListAdapter.notifyDataSetChanged();
+                super.onPostExecute(list);
+            }
+
+            @Override
+            protected void onCancelled() {
+                Toast.makeText(SearchActivity.this, api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+                super.onCancelled();
+            }
+        }.execute();
+    }
 }

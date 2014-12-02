@@ -30,7 +30,7 @@ import me.yiye.utils.YiyeApi;
 
 public class MainActivity extends FragmentActivity {
 
-    private List<Map<String,Object>> mMatchData;
+    private List<Map<String, Object>> mMatchData;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -48,21 +48,21 @@ public class MainActivity extends FragmentActivity {
                 R.drawable.ic_drawer_explore_normal,
                 R.drawable.ic_drawer_setting_normal,
                 R.drawable.ic_drawer_login_normal};
-        for(int i = 0;i < 5;i ++) {
-            HashMap<String,Object> h = new HashMap<String, Object>();
-            h.put("img",planetIco[i]);
-            h.put("text",planetTitles[i]);
+        for (int i = 0; i < 5; i++) {
+            HashMap<String, Object> h = new HashMap<String, Object>();
+            h.put("img", planetIco[i]);
+            h.put("text", planetTitles[i]);
             mMatchData.add(h);
         }
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        View headerView = View.inflate(this,R.layout.view_main_drawer_header,null);
+        View headerView = View.inflate(this, R.layout.view_main_drawer_header, null);
         mDrawerList.addHeaderView(headerView);
 
-        String[] from = new String[] {"img","text"};
-        int[] to = new int[] {R.id.imageview_main_drawer_ico,R.id.textview_main_drawer_text};
-        mDrawerList.setAdapter(new SimpleAdapter(this,mMatchData,R.layout.item_main_drawer_list,from,to));
+        String[] from = new String[]{"img", "text"};
+        int[] to = new int[]{R.id.imageview_main_drawer_ico, R.id.textview_main_drawer_text};
+        mDrawerList.setAdapter(new SimpleAdapter(this, mMatchData, R.layout.item_main_drawer_list, from, to));
         mDrawerList.setOnItemClickListener(new OnDrawerListItemClickListener());
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -105,6 +105,7 @@ public class MainActivity extends FragmentActivity {
         Fragment packetFragment = new PacketFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main, packetFragment).commit();
     }
+
     public static void launch(Context context) {
         Intent i = new Intent();
         i.setClass(context, MainActivity.class);
@@ -126,8 +127,9 @@ public class MainActivity extends FragmentActivity {
                 case 2:// 发现
                     SearchActivity.launch(MainActivity.this);
                     break;
-                case 3:
-                    break; // 关于
+                case 3: // 关于
+                    AboutActivity.launch(MainActivity.this);
+                    break;
                 case 4: // 登录
                     LoginManagerActivity.launch(MainActivity.this);
                     break;

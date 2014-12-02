@@ -30,6 +30,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AboutActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/NormalActivityTheme" />
+
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout"
             android:label="@string/drawer_open"
@@ -60,6 +65,7 @@
             android:launchMode="singleTask"
             android:theme="@style/NormalActivityTheme"
             android:windowSoftInputMode="stateAlwaysVisible"></activity>
+
     </application>
 
 </manifest>
