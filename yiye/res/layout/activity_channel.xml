@@ -15,12 +15,11 @@
         ptr:ptrHeaderTextColor="@color/WHITE"
         ptr:ptrRefreshableViewBackground="@color/pulllistviewheaderbackgroud" />
 
-    <TextView
-        android:id="@+id/textview_channel_emptyinfo"
+    <ImageView
+        android:id="@+id/imageview_channel_emptyinfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/empty_info"
-        android:textSize="72sp"
-        android:gravity="center"
-        android:visibility="gone"/>
+        android:src="@drawable/ic_no_bookmark"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
 </FrameLayout>

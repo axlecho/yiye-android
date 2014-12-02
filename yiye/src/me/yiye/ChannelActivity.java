@@ -82,7 +82,7 @@ public class ChannelActivity extends BaseActivity {
 		bookMarkListViewAdapter = new ChannelAdapter(this);
 		bookMarkListView.setAdapter(bookMarkListViewAdapter);
 
-        emptyInfoView = findViewById(R.id.textview_channel_emptyinfo);
+        emptyInfoView = findViewById(R.id.imageview_channel_emptyinfo);
 
         MLog.i(TAG,"init### load data offline");
 		freshdata(new YiyeApiOfflineImp(this),new OnFreshCompleteListener() {
