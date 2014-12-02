@@ -156,10 +156,11 @@ public class SQLManager {
 				MLog.e(TAG, "saveBookMark### insert error");
 			}
 		} else {
-			MLog.d(TAG,"saveBookmarkl### update bookmark:" + b.id);
+			MLog.d(TAG,"saveBookmarkl### bookmark:" + b.id + " need update");
 			if(cur.moveToFirst()) {
-				String[] args = {String.valueOf(b.channelId)};
-				db.update("bookmark", cv, "id=?", args);
+				String[] args = {b.id};
+				int ret = db.update("bookmark", cv, "id=?", args);
+                MLog.d(TAG,"saveBookmarkl### update bookmark " + b.id + " result:" + ret);
 			}
 		}
 		

@@ -47,6 +47,7 @@ public class NetworkUtil {
 		MLog.d(TAG, "post### " + url);
 		try {
 			HttpPost httpRequest = new HttpPost(url);
+            httpRequest.addHeader("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36"); // 伪装成chrome
 			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			HttpResponse httpResponse = httpClient.execute(httpRequest);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -92,6 +93,7 @@ public class NetworkUtil {
 		MLog.d(TAG, "get### " + url);
 		try {
 			HttpGet httpget = new HttpGet(url);
+            httpget.addHeader("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36"); // 伪装成chrome
 			SharedPreferences share = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
 			String cookie = share.getString("yiye", "");
 			httpget.addHeader("Cookie", cookie);
