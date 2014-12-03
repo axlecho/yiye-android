@@ -17,20 +17,21 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initActionbar(getResources().getString(R.string.about_describe));
         setContentView(R.layout.activity_about);
+
         findViewById(R.id.textview_about_bug).setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 BookMark b = new BookMark();
-                b.url = "http://yiye.me/our/team/#b";
+                b.url = getResources().getString(R.string.bug_url);
                 b.title = getResources().getString(R.string.bug_feedback_decribe);
-                BookMarkActivity.launch(AboutActivity.this,b);
+                BookMarkActivity.launch(AboutActivity.this, b);
             }
         });
 
         // 设置版本号粗体
-        TextView versionTextView = (TextView)findViewById(R.id.textview_about_version);
-        TextPaint tp = versionTextView.getPaint();
-        tp.setFakeBoldText(true);
+        TextView versionTextView = (TextView) findViewById(R.id.textview_about_version);
+        versionTextView.getPaint().setFakeBoldText(true);
     }
 
     public static void launch(Context context) {
@@ -38,6 +39,5 @@ public class AboutActivity extends BaseActivity {
         i.setClass(context, AboutActivity.class);
         context.startActivity(i);
     }
-
 }
 

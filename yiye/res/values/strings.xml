@@ -39,6 +39,7 @@
     <string name="aboutus_decribe">关于我们</string>
     <string name="aboutprod_decribe">关于一叶</string>
     <string name="bug_feedback_decribe">Bug反馈及改进意见</string>
+    <string name="bug_url">http://yiye.me/our/team/#b</string>
     <string name="copyright_decribe">一叶团队 版权所有\nCopyright © 2014 - 2015 Yiye.\nAll Rights Reserved</string>
     <string name="empty_info">404 not found</string>
     <string name="drawer_open"> 一叶</string>
