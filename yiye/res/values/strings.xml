@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_version">一叶书签 1.0</string>
     <string name="app_name">一叶书签</string>
     <string name="commentary_describe">评论</string>
     <string name="favour_describe">收藏</string>
@@ -37,6 +37,10 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <string name="aboutus_decribe">关于我们</string>
+    <string name="aboutprod_decribe">关于一叶</string>
+    <string name="bug_feedback_decribe">Bug反馈及改进意见</string>
+    <string name="copyright_decribe">一叶团队 版权所有\nCopyright © 2014 - 2015 Yiye.\nAll Rights Reserved</string>
     <string name="empty_info">404 not found</string>
 
 
@@ -50,4 +54,5 @@
 
     <string name="drawer_open"> 一叶</string>
     <string name="drawer_close">频道</string>
+    <string name="delectupdate_decribe">更新检测</string>
 </resources>

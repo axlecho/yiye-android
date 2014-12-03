@@ -15,7 +15,7 @@ class BaseActivity  extends SherlockActivity {
 		View barview = View.inflate(this,R.layout.view_actionbar,null);
 		getSupportActionBar().setCustomView(barview,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		getSupportActionBar().setDisplayShowCustomEnabled(true);
-		
+
 		// 标题
 		TextView titleTextView = (TextView) barview.findViewById(R.id.textview_actionbar_title);
 		titleTextView.setText(title);
