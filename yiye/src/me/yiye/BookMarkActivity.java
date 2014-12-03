@@ -28,14 +28,15 @@ public class BookMarkActivity extends BaseActivity {
 	
 	private ConstomWebView mWebView;
 	private SmoothProgressBar loaddingProgressBar;
-	private OnTouchListener webviewTouchListener;
-	
+
 	
 	private View commentaryView;
 	private View toolBarView;
 	private ImageButton commentaryBtn;
 	private ImageButton favourBtn;
 	private ImageButton shareBtn;
+
+    private OnTouchListener webviewTouchListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class BookMarkActivity extends BaseActivity {
 	private void initWebView() {
 		
 		// 设置webview
-		mWebView = (ConstomWebView) this.findViewById(R.id.webview_bookmark);
+		mWebView = (ConstomWebView) findViewById(R.id.webview_bookmark);
 		WebSettings webSettings = mWebView.getSettings();
 		webSettings.setSupportZoom(true);	// 允许缩放
 		webSettings.setBuiltInZoomControls(true);	// 使用内建的缩放手势
@@ -91,8 +92,8 @@ public class BookMarkActivity extends BaseActivity {
 	}
 
 	private void initBottomActionBar() {
-		commentaryView = (View) this.findViewById(R.id.view_bookmark_commentary);
-		toolBarView = (View) this.findViewById(R.id.view_bookmark_toolbar);
+		commentaryView = findViewById(R.id.view_bookmark_commentary);
+		toolBarView = findViewById(R.id.view_bookmark_toolbar);
 		
 		// 底部栏的三个按钮
 		commentaryBtn = (ImageButton) toolBarView.findViewById(R.id.imagebutton_bookmark_commentary);

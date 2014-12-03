@@ -25,8 +25,8 @@ import android.content.SharedPreferences.Editor;
 public class NetworkUtil {
 	private final static String TAG = "NetworkUtil";
 
-	private final static int HTTP_CONNECT_TIMEOUT = 3 * 1000;
-	private final static int HTTP_SOCKET_TIMEOUT = 3 * 1000;
+	private final static int HTTP_CONNECT_TIMEOUT = 10 * 1000;
+	private final static int HTTP_SOCKET_TIMEOUT = 10 * 1000;
 
 	private static HttpClient httpClient;
 
