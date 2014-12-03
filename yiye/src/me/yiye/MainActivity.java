@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -34,8 +35,8 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private SimpleAdapter mListAdapter;
 
-    private Map<String,Object> loginBtnMap; // 保存登录的Map以方便添加移除login按钮
     private final static String TAG = "MainActivity";
 
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         mMatchData = new ArrayList<Map<String, Object>>();
-        initNavigationDrawer();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         View headerView = View.inflate(this, R.layout.view_main_drawer_header, null);
@@ -51,9 +51,9 @@ public class MainActivity extends FragmentActivity {
 
         String[] from = new String[]{"img", "text"};
         int[] to = new int[]{R.id.imageview_main_drawer_ico, R.id.textview_main_drawer_text};
-        mDrawerList.setAdapter(new SimpleAdapter(this, mMatchData, R.layout.item_main_drawer_list, from, to));
+        mListAdapter = new SimpleAdapter(this, mMatchData, R.layout.item_main_drawer_list, from, to);
+        mDrawerList.setAdapter(mListAdapter);
         mDrawerList.setOnItemClickListener(new OnDrawerListItemClickListener());
-
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
@@ -74,10 +74,11 @@ public class MainActivity extends FragmentActivity {
             }
         };
 
+
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         // Enabling Home button
-        getActionBar().setHomeButtonEnabled(true);
+        // getActionBar().setHomeButtonEnabled(true);
 
         // Enabling Up navigation
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,31 +89,52 @@ public class MainActivity extends FragmentActivity {
         super.onStart();
 
         initMainFragment();
-        initNavigationDrawer();
-        if(YiyeApplication.user != null) { // 没有登录时 去除登录按钮
-            mMatchData.remove(loginBtnMap);
+        if(YiyeApplication.user == null) {
+            initUnLoginNavigationDrawer();
+        } else {
+            initLoginNavigationDrawer();
         }
+        mListAdapter.notifyDataSetChanged();
         setUserInfo();
     }
 
-    private void initNavigationDrawer() {
+    // 初始化登录的NavigationDrawer
+    private void initLoginNavigationDrawer() {
         mMatchData.clear();
-        String[] planetTitles = getResources().getStringArray(R.array.planets_array);
+        String[] planetTitles = new String[] {"首页",
+                "发现",
+                "设置",};
+
         int[] planetIco = {R.drawable.ic_drawer_home_normal,
-                R.drawable.ic_drawer_collect_normal,
                 R.drawable.ic_drawer_explore_normal,
-                R.drawable.ic_drawer_login_normal,
                 R.drawable.ic_drawer_setting_normal};
-        for (int i = 0; i < 5; i++) {
+
+        for (int i = 0; i < planetTitles.length; i++) {
             HashMap<String, Object> h = new HashMap<String, Object>();
             h.put("img", planetIco[i]);
             h.put("text", planetTitles[i]);
             mMatchData.add(h);
+        }
+    }
 
-            // shit 一般的代码
-            if(h.get("text").equals("登录")) {
-                loginBtnMap = h;
-            }
+    // 初始化未登录的NavigationDrawer
+    private void initUnLoginNavigationDrawer() {
+        mMatchData.clear();
+        String[] planetTitles = new String[] {"首页",
+            "发现",
+            "登录",
+            "设置",};
+
+        int[] planetIco = {R.drawable.ic_drawer_home_normal,
+            R.drawable.ic_drawer_explore_normal,
+            R.drawable.ic_drawer_login_normal,
+            R.drawable.ic_drawer_setting_normal};
+
+        for (int i = 0; i < planetTitles.length; i++) {
+            HashMap<String, Object> h = new HashMap<String, Object>();
+            h.put("img", planetIco[i]);
+            h.put("text", planetTitles[i]);
+            mMatchData.add(h);
         }
     }
 
@@ -193,4 +215,5 @@ public class MainActivity extends FragmentActivity {
             usernameTextView.setText(this.getResources().getString(R.string.username_no_authentication));
         }
     }
+
 }
