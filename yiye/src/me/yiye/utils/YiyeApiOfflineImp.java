@@ -88,6 +88,12 @@ public class YiyeApiOfflineImp implements YiyeApi {
     }
 
     @Override
+    public String bookChannel(ChannelEx c) {
+        errorString = YiyeApi.ERROROFFLINE;
+        return null;
+    }
+
+    @Override
     public boolean isOnline(User user) {
         errorString = YiyeApi.ERROROFFLINE;
         return false;

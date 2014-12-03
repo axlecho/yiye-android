@@ -120,6 +120,33 @@ public class YiyeApiImp implements YiyeApi {
     }
 
     @Override
+    public String bookChannel(ChannelEx c) {
+        String ret = NetworkUtil.get(context,YiyeApi.TESTHOST,YiyeApi.BOOKCHANNEL + c.id);
+        if (ret == null) {
+            MLog.e(TAG, "bookChannel### return null");
+            return null;
+        }
+
+        MLog.d(TAG, "bookChannel###network ret:" + ret);
+
+        String infoString = null;
+        try {
+            JSONObject o = new JSONObject(ret);
+            boolean success = o.getBoolean("success");
+            infoString = o.getString("info");
+            if(!success) {
+                errorString = infoString;
+                return null;
+            }
+        } catch (JSONException e) {
+            errorString = "解析json出错";
+            e.printStackTrace();
+        }
+
+        return infoString;
+    }
+
+    @Override
     public List<ChannelEx> search(String keyword) {
         String ret = NetworkUtil.get(context, YiyeApi.TESTHOST, YiyeApi.DISCOVERY + "?keyword=" + keyword);
         if (ret == null) {

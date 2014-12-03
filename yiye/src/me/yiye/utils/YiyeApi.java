@@ -17,6 +17,7 @@ public interface YiyeApi {
 	public String getUserInfo();
     public List<ChannelEx> search(String keyword);
     public List<ChannelEx> getChannelByPage(int i);
+    public String bookChannel(ChannelEx c);
 
 	public boolean isOnline(User user);
 	public final static String TESTHOST = "http://yiye.me/";
@@ -27,6 +28,8 @@ public interface YiyeApi {
 	public final static String BOOKMARKINCHANNEL = "api/bookmarks/oneDay/";
 	public final static String DISCOVERY = "api/discovery/";
     public final static String ALLCHANNEL = "api/home/discover"; // 按页获取图片
+    public final static String BOOKCHANNEL = "channel/sub/";
+
 
 	public final static String PICCDN = "http://yiye.qiniudn.com/";
 	public final static String PICSCALEPARAM = "?imageView2/0/w/400";
@@ -34,4 +37,6 @@ public interface YiyeApi {
 	
 	public final static String ERRORNOLOGIN = "请先登录或注册";
     public final static String ERROROFFLINE = "请检查你的网络";
+
+
 }

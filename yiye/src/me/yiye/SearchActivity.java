@@ -1,6 +1,8 @@
 package me.yiye;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 import me.yiye.contents.ChannelEx;
 import me.yiye.utils.MLog;
@@ -102,10 +105,57 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
+        channelsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+                new AlertDialog.Builder(SearchActivity.this)
+                        .setTitle("订阅书签")
+                        .setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                bookChannel(channelsListAdapter.getItem(pos),new YiyeApiImp(SearchActivity.this));
+                            }
+                        })
+                        .setNegativeButton("取消",null)
+                        .show();
+                return false;
+            }
+        });
+
         freshdata(new YiyeApiImp(this));
     }
 
-	private void doSearch() {
+    private void bookChannel(final ChannelEx c,final YiyeApi api) {
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... v) {
+
+                String ret = api.bookChannel(c);
+                    if(ret == null) {
+                        cancel(false); // 网络异常 跳到onCancelled处理异常
+                    }
+
+                return ret;
+            }
+
+            @Override
+            protected void onPostExecute(String ret) {
+                //TODO 判断添加成功
+                Toast.makeText(SearchActivity.this,"添加书签成功",Toast.LENGTH_LONG).show(); // 显示成功信息
+                super.onPostExecute(ret);
+            }
+
+            @Override
+            protected void onCancelled() {
+                Toast.makeText(SearchActivity.this, api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+                super.onCancelled();
+            }
+        }.execute();
+    }
+
+    private void doSearch() {
 		String keyword = searchEditText.getText().toString();
 		MLog.d(TAG, "onKey### search edit content:" + keyword);
 		ResultActivity.launch(SearchActivity.this, keyword);
