@@ -35,6 +35,7 @@ public class MainActivity extends FragmentActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private Map<String,Object> loginBtnMap; // 保存登录的Map以方便添加移除login按钮
     private final static String TAG = "MainActivity";
 
     public void onCreate(Bundle savedInstanceState) {
@@ -42,19 +43,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         mMatchData = new ArrayList<Map<String, Object>>();
-        String[] planetTitles = getResources().getStringArray(R.array.planets_array);
-        int[] planetIco = {R.drawable.ic_drawer_home_normal,
-                R.drawable.ic_drawer_collect_normal,
-                R.drawable.ic_drawer_explore_normal,
-                R.drawable.ic_drawer_login_normal,
-                R.drawable.ic_drawer_setting_normal};
-        for (int i = 0; i < 5; i++) {
-            HashMap<String, Object> h = new HashMap<String, Object>();
-            h.put("img", planetIco[i]);
-            h.put("text", planetTitles[i]);
-            mMatchData.add(h);
-        }
-
+        initNavigationDrawer();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         View headerView = View.inflate(this, R.layout.view_main_drawer_header, null);
@@ -97,8 +86,34 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         initMainFragment();
+        initNavigationDrawer();
+        if(YiyeApplication.user != null) { // 没有登录时 去除登录按钮
+            mMatchData.remove(loginBtnMap);
+        }
         setUserInfo();
+    }
+
+    private void initNavigationDrawer() {
+        mMatchData.clear();
+        String[] planetTitles = getResources().getStringArray(R.array.planets_array);
+        int[] planetIco = {R.drawable.ic_drawer_home_normal,
+                R.drawable.ic_drawer_collect_normal,
+                R.drawable.ic_drawer_explore_normal,
+                R.drawable.ic_drawer_login_normal,
+                R.drawable.ic_drawer_setting_normal};
+        for (int i = 0; i < 5; i++) {
+            HashMap<String, Object> h = new HashMap<String, Object>();
+            h.put("img", planetIco[i]);
+            h.put("text", planetTitles[i]);
+            mMatchData.add(h);
+
+            // shit 一般的代码
+            if(h.get("text").equals("登录")) {
+                loginBtnMap = h;
+            }
+        }
     }
 
     private void initMainFragment() {
@@ -119,20 +134,17 @@ public class MainActivity extends FragmentActivity {
 
             int pos = i - 1; // 减去headerview
             mDrawerLayout.closeDrawers();
-            switch (pos) {
-                case 0:
-                    break; // 首页
-                case 1:
-                    break; // 收藏
-                case 2:// 发现
-                    SearchActivity.launch(MainActivity.this);
-                    break;
-                case 3: // 登录
-                    LoginManagerActivity.launch(MainActivity.this);
-                    break;
-                case 4: // 设置
-                    SettingActivity.launch(MainActivity.this);
-                    break;
+            String btnSelectString = (String) mMatchData.get(pos).get("text");
+            if(btnSelectString.equals("首页")) {
+
+            } else if( btnSelectString.equals("收藏")) {
+
+            } else if(btnSelectString.equals("发现")) {
+                SearchActivity.launch(MainActivity.this);
+            } else if(btnSelectString.equals("登录")) {
+                LoginManagerActivity.launch(MainActivity.this);
+            } else if(btnSelectString.equals("设置")) {
+                SettingActivity.launch(MainActivity.this);
             }
         }
     }

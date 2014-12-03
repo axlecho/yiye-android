@@ -23,60 +23,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
+    <LinearLayout
         android:layout_marginTop="48dp"
-        android:id="@+id/btn_about_us"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/section_btn_style"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/aboutus_decribe"
-        android:textColor="@color/Grey700"
-        android:textSize="14sp" />
+        android:background="@color/WHITE"
+        android:orientation="vertical">
 
-    <View
-        android:id="@+id/view_personal_divider1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/content_marginex"
-        android:layout_marginRight="@dimen/content_marginex"
-        android:background="@drawable/divider_style" />
+        <Button
 
-    <Button
-        android:id="@+id/btn_about_prod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/section_btn_style"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/aboutprod_decribe"
-        android:textColor="@color/Grey700"
-        android:textSize="14sp" />
+            android:id="@+id/btn_about_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/aboutus_decribe"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
 
-    <View
-        android:id="@+id/view_personal_divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/content_marginex"
-        android:layout_marginRight="@dimen/content_marginex"
-        android:background="@drawable/divider_style" />
+        <View
+            android:id="@+id/view_personal_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/content_marginex"
+            android:layout_marginRight="@dimen/content_marginex"
+            android:background="@drawable/divider_style" />
 
-    <Button
-        android:id="@+id/btn_about_delectupdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/section_btn_style"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/delectupdate_decribe"
-        android:textColor="@color/Grey700"
-        android:textSize="14sp" />
+        <Button
+            android:id="@+id/btn_about_prod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/aboutprod_decribe"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/view_personal_divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/content_marginex"
+            android:layout_marginRight="@dimen/content_marginex"
+            android:background="@drawable/divider_style" />
+
+        <Button
+            android:id="@+id/btn_about_delectupdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/section_btn_style"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/delectupdate_decribe"
+            android:textColor="@color/Grey700"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textview_about_bug"
         android:paddingTop="80dp"
@@ -84,7 +93,7 @@
         android:textColor="@drawable/superline_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bug_feedback_decribe"/>
+        android:text="@string/bug_feedback_decribe" />
 
     <TextView
         android:textSize="12sp"
