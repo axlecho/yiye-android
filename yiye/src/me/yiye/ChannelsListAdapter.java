@@ -66,7 +66,6 @@ class ChannelsListAdapter extends BaseAdapter {
         }
 
         channelLogoImageView = (ImageView) v.findViewById(R.id.imageview_channel_item);
-        channelLogoImageView.setAdjustViewBounds(false);
         ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.logo, channelLogoImageView, imageoptions);
 
         channelNameTextView = (TextView) v.findViewById(R.id.textview_channel_item_title);

@@ -18,18 +18,18 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/imageview_bookmark_item"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="75dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
                 android:contentDescription="@string/bookmark_image_describe"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:src="@drawable/img_loading" />
 
             <TextView
@@ -40,7 +40,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@id/imageview_bookmark_item"
                 android:text="@string/default_bookmark_title"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="3"
+                android:ellipsize="end"/>
 
 
         </RelativeLayout>
@@ -49,7 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textview_bookmark_item_uploader"

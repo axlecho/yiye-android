@@ -166,6 +166,7 @@ public class MainActivity extends FragmentActivity {
 
             int pos = i - 1; // 减去headerview
             drawerLayout.closeDrawers();
+            if(pos < 0) return ;
             String btnSelectString = (String) drawerListContent.get(pos).get("text");
             if(btnSelectString.equals("首页")) {
 

@@ -6,11 +6,16 @@
 
     <com.makeramen.RoundedImageView
         android:id="@+id/imageview_packet_item_background"
+        android:paddingBottom="25dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher" />
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher"
+        android:background="@color/WHITE"/>
 
     <View
         android:id="@+id/view_packet_textprotectarea"
@@ -24,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="3dp"
+        android:padding="3dp"
         android:text="@string/default_packetitem_describe"
         android:textColor="@color/Grey700"
         android:textSize="14sp"

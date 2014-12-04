@@ -29,7 +29,7 @@
     <string name="personalico_decribe">@string/personal_describe</string>
     <string name="default_actionbar_title">@string/app_name</string>
     <string name="bookmark_image_describe">链接图片</string>
-    <string name="default_bookmark_title">标题要长长长长长长长长长长长长长长长长长长长长长长长长长长长长长</string>
+    <string name="default_bookmark_title">标题要长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长</string>
     <string name="default_bookmark_uploader">上传者：axlecho</string>
     <string name="default_bookmark_good">赞 1000</string>
     <string name="default_bookmark_uploadtime">时间：11年11日 </string>
