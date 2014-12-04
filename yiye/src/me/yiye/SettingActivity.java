@@ -14,7 +14,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Set;
+
 import me.yiye.utils.MLog;
+import me.yiye.utils.Tools;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
 
@@ -76,8 +79,8 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     protected void onPostExecute(String result) {
                         logoutingDialog.dismiss();
-                        cleanCurrentUserFromSharedPreferences();
-                        cleanCookies();
+                        Tools.cleanCurrentUserFromSharedPreferences(SettingActivity.this);
+                        Tools.cleanCookies(SettingActivity.this);
                         YiyeApplication.user = null;
 
                         MainActivity.launch(SettingActivity.this);
@@ -105,19 +108,6 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    private void cleanCurrentUserFromSharedPreferences() {
-        SharedPreferences userSharedPreferences = getSharedPreferences("user", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = userSharedPreferences.edit();
-        editor.putString("currentuser", null); // 标记已经初始化
-        editor.commit();
-    }
-
-    private void cleanCookies() {
-        SharedPreferences sharedPreferences = getSharedPreferences("cookie", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("yiye", null);
-        editor.commit();
-    }
 
     public static void launch(Context context) {
         Intent i = new Intent();
