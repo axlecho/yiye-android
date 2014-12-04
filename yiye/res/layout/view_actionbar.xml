@@ -39,7 +39,7 @@
         android:gravity="center"
         android:text="@string/default_actionbar_title"
         android:singleLine="true"
-        android:ellipsize="end"
+        android:ellipsize="marquee"
         android:paddingLeft="48dp"
         android:paddingRight="48dp"
         android:textColor="@color/WHITE"

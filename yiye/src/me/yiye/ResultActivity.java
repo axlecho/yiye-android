@@ -1,6 +1,8 @@
 package me.yiye;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,20 +41,36 @@ public class ResultActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-                ChannelActivity.launch(ResultActivity.this,dataadpter.getItem(pos));
+                ChannelActivity.launch(ResultActivity.this, dataadpter.getItem(pos));
             }
         });
 
+        resultListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+                new AlertDialog.Builder(ResultActivity.this)
+                        .setTitle("订阅书签")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                bookChannel(dataadpter.getItem(pos), new YiyeApiImp(ResultActivity.this));
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+                return false;
+            }
+        });
         freshdata(new YiyeApiImp(this));
     }
 
     private void freshdata(final YiyeApi api) {
         // 获取频道数据
-        new AsyncTask<String, Void,  List<ChannelEx>>() {
+        new AsyncTask<String, Void, List<ChannelEx>>() {
             @Override
             protected List<ChannelEx> doInBackground(String... words) {
                 List<ChannelEx> ret = api.search(words[0]);
-                if(ret == null) {
+                if (ret == null) {
                     cancel(false); // 网络异常 跳到onCancelled处理异常
                 }
                 return ret;
@@ -74,6 +92,35 @@ public class ResultActivity extends BaseActivity {
         }.execute(title);
     }
 
+    private void bookChannel(final ChannelEx c, final YiyeApi api) {
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... v) {
+
+                String ret = api.bookChannel(c);
+                if (ret == null) {
+                    cancel(false); // 网络异常 跳到onCancelled处理异常
+                }
+
+                return ret;
+            }
+
+            @Override
+            protected void onPostExecute(String ret) {
+                //TODO 判断添加成功
+                Toast.makeText(ResultActivity.this, "添加书签成功", Toast.LENGTH_LONG).show(); // 显示成功信息
+                super.onPostExecute(ret);
+            }
+
+            @Override
+            protected void onCancelled() {
+                Toast.makeText(ResultActivity.this, api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+                super.onCancelled();
+            }
+        }.execute();
+    }
 
     public static void launch(Context context) {
         Intent i = new Intent();

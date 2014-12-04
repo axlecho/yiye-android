@@ -27,7 +27,9 @@
         android:layout_margin="3dp"
         android:text="@string/default_packetitem_describe"
         android:textColor="@color/Grey700"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:ellipsize="end"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/textview_over_item_news"

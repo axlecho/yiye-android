@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listitem_style" >
+    android:background="@drawable/listitem_style">
 
     <ImageView
         android:id="@+id/imageview_channel_item"
@@ -20,7 +20,9 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/imageview_channel_item"
         android:text="科技"
-        android:textSize="22sp" />
+        android:ellipsize="end"
+        android:textSize="22sp"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/textview_channel_item_content"
