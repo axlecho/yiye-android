@@ -128,9 +128,11 @@ public class PacketFragment extends Fragment {
 			TextView channelNameTextView;
 			TextView newsTextView;
 			Channel c = channels.get(pos);
+
 			if (convertView == null) {
 				v = View.inflate(context, R.layout.item_packet_style, null);
-				v.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, 300));
+				v.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,
+                        (int)(300 / context.getResources().getDisplayMetrics().density + 0.5f))); //px 转 dp
 				v.setBackgroundResource(R.drawable.packetitem_style);
 			} else {
 				v = convertView;
