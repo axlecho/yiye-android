@@ -41,13 +41,6 @@ public class YiyeApiOfflineImp implements YiyeApi {
         return channelList;
     }
 
-
-    @Override
-    public List<Channel> getChannelsByLabel(String label) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     @Override
     public List<BookMark> getBookMarksByChannelId(String channelId) {
         List<BookMark> bookmarkList = new ArrayList<BookMark>();

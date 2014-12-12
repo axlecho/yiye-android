@@ -1,20 +1,22 @@
 apply plugin: 'android'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
-    compile project(':ActionBarSherlock:actionbarsherlock')
-    compile project(':Android-Universal-Image-Loader:library')
-    compile project(':Android-PullToRefresh:library')
-    compile project(':JazzyViewPager:lib')
-    compile project(':RoundedImageView:roundedimageview:src:main')
     compile 'com.android.support:support-v13:21.0.2'
     compile 'com.android.support:support-v4:21.0.2'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.makeramen:roundedimageview:1.5.0'
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile project(':pulltorefresh')
 }
 
 android {
     compileSdkVersion 18
     buildToolsVersion "20.0.0"
-
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -37,5 +39,13 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+    buildTypes {
+        debug {
+            debuggable false
+        }
+        release {
+            debuggable true
+        }
     }
 }

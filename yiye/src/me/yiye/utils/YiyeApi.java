@@ -9,7 +9,6 @@ import me.yiye.contents.User;
 
 public interface YiyeApi {
 	public List<Channel> getBookedChannels(); // 获取订阅的频道
-	public List<Channel> getChannelsByLabel(String label);	// 由标签获取频道
     public List<BookMark> getBookMarksByChannelId(String channelId);
 
 	public String login(String email,String keyword);
@@ -20,7 +19,7 @@ public interface YiyeApi {
     public String bookChannel(ChannelEx c);
 
 	public boolean isOnline(User user);
-	public final static String TESTHOST = "http://yiye.me/";
+	public final static String TESTHOST = "http://axlecho.me:5000/";
 	public final static String BOOKEDCHANNELS = "api/channel/all";
 	public final static String LOGIN = "api/account/login";
 	public final static String LOGOUT = "api/account/logout";

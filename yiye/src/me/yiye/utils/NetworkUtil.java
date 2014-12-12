@@ -52,8 +52,18 @@ public class NetworkUtil {
 			HttpResponse httpResponse = httpClient.execute(httpRequest);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			if (statusCode == 200) {
+
+
 				// 取出回应字串
 				String strResult = EntityUtils.toString(httpResponse.getEntity());
+                JSONObject resultJson = new JSONObject(strResult);
+                int code = resultJson.getInt("code");
+                if(code != 0) {
+                    errorString = resultJson.getString("msg");
+                    return null;
+                }
+
+                String data = resultJson.getString("data");
 				Header header = httpResponse.getFirstHeader("Set-Cookie");
 				String cookie = header.getValue();
 				MLog.d("TAG", "post### cookie:" + cookie);
@@ -63,16 +73,12 @@ public class NetworkUtil {
 				Editor editor = sharedPreferences.edit();
 				editor.putString("yiye", cookie);
 				editor.commit();
-				return strResult;
+				return data;
 			} else {
 				MLog.e(TAG, "post### return status code:" + httpResponse.getStatusLine().getStatusCode());
 				String  retString = EntityUtils.toString(httpResponse.getEntity());
 				MLog.e(TAG,"post### extra info:" + retString);
-				if(httpResponse.getStatusLine().getStatusCode() == 401) {
-					JSONObject jo = new JSONObject(retString);
-					String info = jo.getString("message");
-					errorString = info;
-				}
+                errorString = "错误：" + httpResponse.getStatusLine().getStatusCode();
 				return null;
 			}
 		} catch (ConnectTimeoutException e) {
@@ -82,7 +88,7 @@ public class NetworkUtil {
 			errorString = "连接超时";
 			MLog.e(TAG, "post### socket time out");
 		} catch (Exception e) {
-			errorString = "网络出错";
+			errorString = "未知的错误";
 			e.printStackTrace();
 		}
 		return null;
@@ -98,15 +104,22 @@ public class NetworkUtil {
 			String cookie = share.getString("yiye", "");
 			httpget.addHeader("Cookie", cookie);
 			HttpResponse ret = httpClient.execute(httpget);
-			if(ret.getStatusLine().getStatusCode() == 200) { 
-				return EntityUtils.toString(ret.getEntity(), "utf-8");
+			if(ret.getStatusLine().getStatusCode() == 200) {
+				String resultString = EntityUtils.toString(ret.getEntity(), "utf-8");
+                JSONObject resultJson = new JSONObject(resultString);
+                int code = resultJson.getInt("code");
+
+                if(code !=0) {  // 逻辑错误
+                    errorString = resultJson.getString("msg");
+                    return null;
+                }
+
+                String data = resultJson.getString("data");
+                return data;
+
 			} else {
 				MLog.e(TAG, "get### return status code:" + ret.getStatusLine().getStatusCode());
-				if(ret.getStatusLine().getStatusCode() == 401) {
-					JSONObject jo = new JSONObject(EntityUtils.toString(ret.getEntity(), "utf-8"));
-					String info = jo.getString("info");
-					errorString = info;
-				}
+                errorString = "错误:" + ret.getStatusLine().getStatusCode();
 				return null;
 			}
 			
@@ -117,7 +130,7 @@ public class NetworkUtil {
 			errorString = "连接超时";
 			MLog.e(TAG, "post### socket time out");
 		} catch (Exception e) {
-			errorString = "网络出错";
+			errorString = "未知的错误";
 			e.printStackTrace();
 		}
 		return null;

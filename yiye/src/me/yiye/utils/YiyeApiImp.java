@@ -42,12 +42,6 @@ public class YiyeApiImp implements YiyeApi {
         return bookedChannels;
     }
 
-    @Override
-    public List<Channel> getChannelsByLabel(String label) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 
     @Override
     public List<BookMark> getBookMarksByChannelId(String channelId) {
@@ -178,11 +172,10 @@ public class YiyeApiImp implements YiyeApi {
         return foundChannels;
     }
 
-
     @Override
     public boolean isOnline(User user) {
         String ret = login(user.email, user.password);
-        return (ret == null || ret.endsWith("error") ? true : false);
+        return (ret == null ? true : false);
     }
 
     @Override
