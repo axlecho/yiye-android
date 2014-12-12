@@ -37,9 +37,6 @@ public class PersonalActivity extends BaseActivity {
             .build();
     private Button loginBtn;
     private Button aboutBtn;
-
-    private Button findBtn;
-
     private View v;
 
     @Override
@@ -72,20 +69,7 @@ public class PersonalActivity extends BaseActivity {
         aboutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(PersonalActivity.this)
-                        .setTitle("关于一叶")
-                        .setMessage(PersonalActivity.this.getResources().getString(R.string.notdone_decribe))
-                        .setPositiveButton("确定", null)
-                        .show();
-            }
-        });
-
-        findBtn = (Button) v.findViewById(R.id.btn_personal_discover);
-        findBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                SearchActivity.launch(PersonalActivity.this);
+                AboutActivity.launch(PersonalActivity.this);
             }
         });
 

@@ -4,33 +4,25 @@
     android:layout_height="match_parent"
     android:background="@color/activitybackgroud" >
 
-    <ImageView
-        android:id="@+id/imageview_personal_header"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:contentDescription="@string/userimage_header_describe"
-        android:scaleType="centerCrop"
-        android:src="@drawable/person_header_test" />
+
 
     <ImageView
         android:id="@+id/imageview_personal_userimg"
+        android:layout_centerHorizontal="true"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/imageview_personal_header"
-        android:layout_marginLeft="@dimen/content_marginex"
-        android:layout_marginTop="-45dp"
+        android:layout_marginTop="45dp"
         android:contentDescription="@string/userimage_describe"
         android:src="@drawable/ic_launcher"
         android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/textview_personal_username"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imageview_personal_userimg"
+        android:layout_below="@id/imageview_personal_userimg"
         android:layout_margin="@dimen/content_margin"
-        android:layout_toRightOf="@id/imageview_personal_userimg"
         android:text="@string/username_no_authentication"
         android:textColor="@color/Grey900"
         android:textSize="22sp" />
@@ -39,7 +31,7 @@
         android:id="@+id/view_personnal_group1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageview_personal_header"
+        android:layout_below="@id/imageview_personal_userimg"
         android:layout_marginTop="66dp"
         android:background="@color/WHITE"
         android:orientation="vertical" >
@@ -53,27 +45,6 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/favour_describe"
-            android:textColor="@color/Grey700"
-            android:textSize="14sp" />
-
-        <View
-            android:id="@+id/view_personal_divider1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/content_marginex"
-            android:layout_marginRight="@dimen/content_marginex"
-            android:background="@drawable/divider_style" />
-
-        <Button
-            android:id="@+id/btn_personal_discover"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/section_btn_style"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/discover_describe"
             android:textColor="@color/Grey700"
             android:textSize="14sp" />
     </LinearLayout>

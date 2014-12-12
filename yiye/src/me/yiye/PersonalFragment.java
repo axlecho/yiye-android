@@ -80,15 +80,6 @@ public class PersonalFragment extends Fragment {
             }
         });
 
-        findBtn = (Button) v.findViewById(R.id.btn_personal_discover);
-        findBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                SearchActivity.launch(getActivity());
-            }
-        });
-
         MLog.d(TAG, "init### setting user info");
         setUserInfo();
     }
