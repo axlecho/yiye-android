@@ -18,6 +18,7 @@
         <item name="android:background">@color/Teal500</item>
         <item name="android:titleTextStyle">@style/NormalActionBarTitleStyle</item>
         <item name="android:icon">@android:color/transparent</item>
+        <item name="android:displayOptions"></item>
     </style>
 
     <style name="NormalActionBarTitleStyle">
@@ -38,6 +39,7 @@
         <item name="android:background">@color/Teal500</item>
         <item name="android:titleTextStyle">@style/MainActionBarTitleStyle</item>
         <item name="android:icon">@android:color/transparent</item>
+        <item name="android:displayOptions">showTitle</item>
     </style>
 
     <style name="MainActionBarTitleStyle">

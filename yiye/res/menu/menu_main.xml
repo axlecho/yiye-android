@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_main_search"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/seach_describe" />
+
+    <item
+        android:id="@+id/menu_main_personal"
+        android:icon="@drawable/ic_action_person"
+        android:showAsAction="always"
+        android:title="@string/personal_describe" />
+</menu>

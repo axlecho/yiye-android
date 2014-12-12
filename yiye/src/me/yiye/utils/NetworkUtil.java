@@ -52,10 +52,9 @@ public class NetworkUtil {
 			HttpResponse httpResponse = httpClient.execute(httpRequest);
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 			if (statusCode == 200) {
-
-
 				// 取出回应字串
 				String strResult = EntityUtils.toString(httpResponse.getEntity());
+                MLog.d(TAG,"post###" + strResult);
                 JSONObject resultJson = new JSONObject(strResult);
                 int code = resultJson.getInt("code");
                 if(code != 0) {
@@ -64,7 +63,7 @@ public class NetworkUtil {
                 }
 
                 String data = resultJson.getString("data");
-				Header header = httpResponse.getFirstHeader("Set-Cookie");
+				Header header = httpResponse.getFirstHeader("set-cookie");
 				String cookie = header.getValue();
 				MLog.d("TAG", "post### cookie:" + cookie);
 
@@ -106,6 +105,8 @@ public class NetworkUtil {
 			HttpResponse ret = httpClient.execute(httpget);
 			if(ret.getStatusLine().getStatusCode() == 200) {
 				String resultString = EntityUtils.toString(ret.getEntity(), "utf-8");
+                MLog.d(TAG,"get###" + resultString);
+
                 JSONObject resultJson = new JSONObject(resultString);
                 int code = resultJson.getInt("code");
 

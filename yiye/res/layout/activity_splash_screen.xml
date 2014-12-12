@@ -5,7 +5,7 @@
     android:background="@color/BLACK">
 
     <ImageView
-        android:id="@+id/imageview_splash"
+        android:id="@+id/imageview_splash_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -25,6 +25,7 @@
 
 
     <ImageView
+        android:id="@+id/imageview_splash_logo"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_gravity="bottom|center_horizontal"
@@ -32,4 +33,15 @@
         android:alpha="1.0"
         android:scaleType="centerCrop"
         android:src="@drawable/slash_logo" />
+
+    <Button
+        android:id="@+id/btn_splash_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="80dp"
+        android:text="@string/login_describe"
+        android:textColor="@color/WHITE"
+        android:textSize="30sp"
+        android:visibility="gone" />
 </FrameLayout>
