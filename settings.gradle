@@ -1,2 +1,1 @@
-include ':yiye', ':pulltorefresh'
-project(':pulltorefresh').projectDir = new File('Android-PullToRefresh/library')
+include ':yiye'

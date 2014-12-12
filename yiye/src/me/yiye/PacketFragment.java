@@ -10,14 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -30,6 +26,9 @@ import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
 import me.yiye.utils.YiyeApiOfflineImp;
+import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 public class PacketFragment extends Fragment {
 	private final static String TAG = "PacketFragment";
@@ -43,7 +42,7 @@ public class PacketFragment extends Fragment {
 		.build();
 
 	private ChannelsListAdapter dataadpter;
-	private PullToRefreshListView pullableView;
+    private PullToRefreshLayout mPullToRefreshLayout;
 	private ListView mainDataListView;
 
 
@@ -59,28 +58,30 @@ public class PacketFragment extends Fragment {
 	
 	private void init(View v) {
 		dataadpter = new ChannelsListAdapter(this.getActivity());
-		pullableView = (PullToRefreshListView) v.findViewById(R.id.listview_main_content);
-		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
-		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.ic_star));
-		
-		// 下拉刷新数据
-		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+        mPullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.pulltorefreshlayout_channel);
+        ActionBarPullToRefresh.from(this.getActivity())
+                // Mark All Children as pullable
+                .allChildrenArePullable()
+                        // Set a OnRefreshListener
+                .listener(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshStarted(View view) {
+                        MLog.i(TAG,"onRefresh### load data from network");
+                        freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
+                    }
+                })
+                        // Finally commit the setup to our PullToRefreshLayout
+                .setup(mPullToRefreshLayout);
 
-			@Override
-			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                MLog.i(TAG,"onRefresh### load data from network");
-				freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
-			}
-		});
 
-		mainDataListView = pullableView.getRefreshableView();
+		mainDataListView =  (ListView)v.findViewById(R.id.listview_main_content);
 		mainDataListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		mainDataListView.setAdapter(dataadpter);
 		mainDataListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-                ChannelActivity.launch(PacketFragment.this.getActivity(), dataadpter.getItem(pos - 1)); // 减去header
+                ChannelActivity.launch(PacketFragment.this.getActivity(), dataadpter.getItem(pos));
             }
         });
 		
@@ -186,19 +187,19 @@ public class PacketFragment extends Fragment {
 			protected void onPostExecute(List<Channel> list) {
 				dataadpter.setData(list);
 				dataadpter.notifyDataSetChanged();
-				pullableView.onRefreshComplete();
                 freshAsyncTask = null;
                 if(listener != null) {
                     listener.freshComplete(list);
                 }
+                mPullToRefreshLayout.setRefreshComplete();
 				super.onPostExecute(list);
 			}
 			
 			@Override
 			protected void onCancelled() {
 				Toast.makeText(PacketFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
-				pullableView.onRefreshComplete();
                 freshAsyncTask = null;
+                mPullToRefreshLayout.setRefreshComplete();
 				super.onCancelled();
 			}
 		}.execute();

@@ -16,10 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.DateFormat;
@@ -37,18 +33,21 @@ import me.yiye.utils.MLog;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
 import me.yiye.utils.YiyeApiOfflineImp;
+import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 public class ChannelActivity extends BaseActivity {
 	private final static String TAG = "ChannelActivity";
 	private ChannelAdapter bookMarkListViewAdapter;
 	private ListView bookMarkListView;
-	private PullToRefreshListView pullableView;
 
     private static String title = null;
     private static String channelid = null;
 
     private View emptyInfoView;
     private static AsyncTask freshAsyncTask;
+    private PullToRefreshLayout mPullToRefreshLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,18 +57,23 @@ public class ChannelActivity extends BaseActivity {
 	}
 
 	private void initChannelListView() {
-		pullableView = (PullToRefreshListView) this.findViewById(R.id.listview_channel_bookmarks);
-		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.ic_star));
-		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+        mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pulltorefreshlayout_channel);
+        ActionBarPullToRefresh.from(this)
+                // Mark All Children as pullable
+                .allChildrenArePullable()
+                        // Set a OnRefreshListener
+                .listener(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshStarted(View view) {
+                        MLog.i(TAG, "onRefreshStarted### load data from network");
+                        freshdata(new YiyeApiImp(ChannelActivity.this));
+                    }
+                })
+                        // Finally commit the setup to our PullToRefreshLayout
+                .setup(mPullToRefreshLayout);
 
-			@Override
-			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                MLog.i(TAG,"onRefresh### load data from network");
-				freshdata(new YiyeApiImp(ChannelActivity.this));
-			}
-		});
 
-		bookMarkListView = pullableView.getRefreshableView();
+		bookMarkListView = (ListView)findViewById(R.id.listview_channel_bookmarks);
 		bookMarkListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
 		bookMarkListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -231,17 +235,17 @@ public class ChannelActivity extends BaseActivity {
                 } else {
                     emptyInfoView.setVisibility(View.GONE);
                 }
-                pullableView.onRefreshComplete();
                 if (listener != null) {
                     listener.freshComplete(list);
                 }
+                mPullToRefreshLayout.setRefreshComplete();
                 super.onPostExecute(list);
             }
 
             @Override
             protected void onCancelled() {
                 Toast.makeText(ChannelActivity.this, api.getError(), Toast.LENGTH_LONG).show();
-                pullableView.onRefreshComplete();
+                mPullToRefreshLayout.setRefreshComplete();
                 super.onCancelled();
             }
         }.execute();
