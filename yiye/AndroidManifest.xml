@@ -65,7 +65,10 @@
             android:launchMode="singleTask"
             android:theme="@style/NormalActivityTheme"
             android:windowSoftInputMode="stateAlwaysVisible"></activity>
-
+        <activity
+            android:name=".PersonalActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/NormalActivityTheme" />
     </application>
 
 </manifest>

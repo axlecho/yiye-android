@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.handmark.pulltorefresh.library.PullToRefreshGridView
-        android:id="@+id/gridview_main_content"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview_main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="90dp"

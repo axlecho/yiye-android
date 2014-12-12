@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity {
                 SearchActivity.launch(this);
                 break;
             case R.id.menu_main_personal:
-                // PersonalActivity.launch(this);
+                PersonalActivity.launch(this);
                 break;
             default:
                 break;

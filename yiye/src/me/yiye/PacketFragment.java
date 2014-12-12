@@ -11,12 +11,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -41,9 +42,9 @@ public class PacketFragment extends Fragment {
 		.considerExifParams(true)
 		.build();
 
-	private ChannelsGridAdapter dataadpter;
-	private PullToRefreshGridView pullableView;
-	private GridView mainDataGridView;
+	private ChannelsListAdapter dataadpter;
+	private PullToRefreshListView pullableView;
+	private ListView mainDataListView;
 
 
     private static AsyncTask freshAsyncTask;
@@ -57,30 +58,31 @@ public class PacketFragment extends Fragment {
 	}
 	
 	private void init(View v) {
-		dataadpter = new ChannelsGridAdapter(this.getActivity());
-		pullableView = (PullToRefreshGridView) v.findViewById(R.id.gridview_main_content);
+		dataadpter = new ChannelsListAdapter(this.getActivity());
+		pullableView = (PullToRefreshListView) v.findViewById(R.id.listview_main_content);
 		// pullableView.getLoadingLayoutProxy().setPullLabel("你妹的");
 		pullableView.getLoadingLayoutProxy().setLoadingDrawable(getResources().getDrawable(R.drawable.ic_star));
 		
 		// 下拉刷新数据
-		pullableView.setOnRefreshListener(new OnRefreshListener<GridView>() {
+		pullableView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
-			public void onRefresh(PullToRefreshBase<GridView> refreshView) {
+			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 MLog.i(TAG,"onRefresh### load data from network");
 				freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
 			}
 		});
-		mainDataGridView = pullableView.getRefreshableView();
-		mainDataGridView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
-		mainDataGridView.setAdapter(dataadpter);
-		mainDataGridView.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View v, int pos,long id) {
-				ChannelActivity.launch(PacketFragment.this.getActivity(),dataadpter.getItem(pos));
-			}
-		});
+		mainDataListView = pullableView.getRefreshableView();
+		mainDataListView.setBackgroundColor(getResources().getColor(R.color.activitybackgroud));
+		mainDataListView.setAdapter(dataadpter);
+		mainDataListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
+                ChannelActivity.launch(PacketFragment.this.getActivity(), dataadpter.getItem(pos - 1)); // 减去header
+            }
+        });
 		
 		// 加载离线数据
         MLog.i(TAG,"init### load data offline");
@@ -96,11 +98,11 @@ public class PacketFragment extends Fragment {
         });
 	}
 	
-	class ChannelsGridAdapter extends BaseAdapter {
+	class ChannelsListAdapter extends BaseAdapter {
 		private Context context;
 		private List<Channel> channels = new ArrayList<Channel>();
 		
-		ChannelsGridAdapter(Context context) {
+		ChannelsListAdapter(Context context) {
 			this.context = context;
 			channels = new ArrayList<Channel>();
 		}
@@ -131,8 +133,6 @@ public class PacketFragment extends Fragment {
 
 			if (convertView == null) {
 				v = View.inflate(context, R.layout.item_packet_style, null);
-				v.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,
-                        (int)(150 * context.getResources().getDisplayMetrics().density + 0.5f))); //px 转 dp
 				v.setBackgroundResource(R.drawable.packetitem_style);
 			} else {
 				v = convertView;
