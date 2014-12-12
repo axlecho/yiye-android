@@ -11,6 +11,7 @@
     <string name="useremail_describe">电话，邮箱地址或用户名</string>
     <string name="password_describe">密码</string>
     <string name="login_describe">登录</string>
+    <string name="signup_decribe">注册</string>
     <string name="userimage_describe">用户头像</string>
     <string name="userimage_header_describe">用户头像背景</string>
     <string name="username_no_authentication">未登录</string>

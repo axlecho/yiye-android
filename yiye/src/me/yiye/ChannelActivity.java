@@ -79,7 +79,7 @@ public class ChannelActivity extends BaseActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-					BookMarkActivity.launch(ChannelActivity.this, bookMarkListViewAdapter.getItem(pos - 1));
+					BookMarkActivity.launch(ChannelActivity.this, bookMarkListViewAdapter.getItem(pos));
 			}
 		});
 

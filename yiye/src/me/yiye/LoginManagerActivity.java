@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.SQLManager;
+import me.yiye.utils.Tools;
 import me.yiye.utils.YiyeApi;
 import me.yiye.utils.YiyeApiImp;
 
@@ -42,7 +43,7 @@ public class LoginManagerActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_login);
 		initActionbar("登陆");
-
+        Tools.getInstance().addActivity(this);
 		loginBtn = (Button) this.findViewById(R.id.btn_login);
 		emailEditText = (EditText) this.findViewById(R.id.edittext_login_email);
 		passwordEditText = (EditText) this.findViewById(R.id.edittext_login_password);
@@ -149,7 +150,6 @@ public class LoginManagerActivity extends BaseActivity {
 						}				
 						
 						MainActivity.launch(LoginManagerActivity.this);
-						finish();
 					}
 
 					@Override

@@ -42,6 +42,7 @@ public class PersonalActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Tools.getInstance().addActivity(this);
         initActionbar(getResources().getString(R.string.personal_describe));
         v = this.getLayoutInflater().inflate(R.layout.fragment_personal, null, false);
         init(v);
@@ -112,17 +113,7 @@ public class PersonalActivity extends BaseActivity {
                             }
 
                             MLog.d(TAG, "doInBackground### logout ret:" + ret);
-                            String result = null;
-
-                            try {
-                                JSONObject o = new JSONObject(ret);
-                                result = o.getString("result");
-                            } catch (JSONException e) {
-                                MLog.e(TAG, "doInBackground### get result info failed");
-                                e.printStackTrace();
-                            }
-
-                            return result;
+                            return ret;
                         }
 
                         @Override
@@ -132,6 +123,7 @@ public class PersonalActivity extends BaseActivity {
                             Tools.cleanCookies(PersonalActivity.this);
                             YiyeApplication.user = null;
                             setUserInfo();
+                            SplashScreen.launch(PersonalActivity.this);
                         }
 
                         @Override
@@ -140,8 +132,6 @@ public class PersonalActivity extends BaseActivity {
                             Toast.makeText(PersonalActivity.this, api.getError(), Toast.LENGTH_LONG).show();
                             super.onCancelled();
                         }
-
-
                     }.execute();
                 }
             });

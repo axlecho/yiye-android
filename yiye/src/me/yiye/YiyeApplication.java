@@ -13,10 +13,14 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import me.yiye.contents.User;
 import me.yiye.utils.MLog;
 import me.yiye.utils.NetworkUtil;
 import me.yiye.utils.SQLManager;
+import me.yiye.utils.Tools;
 
 public class YiyeApplication 	extends Application{
 	
@@ -40,7 +44,7 @@ public class YiyeApplication 	extends Application{
 	
 	public void onCreate() {
 		super.onCreate();
-		initImageLoader(getApplicationContext());
+        initImageLoader(getApplicationContext());
 		
 		// 初始化数据库
 		SQLManager.init(getApplicationContext());
@@ -87,5 +91,6 @@ public class YiyeApplication 	extends Application{
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);
 	}
+
 
 }

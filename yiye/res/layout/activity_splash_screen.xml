@@ -29,19 +29,52 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="90dp"
         android:alpha="1.0"
         android:scaleType="centerCrop"
-        android:src="@drawable/slash_logo" />
-
-    <Button
-        android:id="@+id/btn_splash_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="80dp"
-        android:text="@string/login_describe"
-        android:textColor="@color/WHITE"
-        android:textSize="30sp"
+        android:src="@drawable/slash_logo"
         android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/view_splash_unlogin_pad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/WHITE"
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:background="@drawable/splash_btn_style"
+            android:id="@+id/btn_splash_login"
+            android:paddingTop="5dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="150dp"
+            android:text="@string/login_describe"
+            android:textColor="@color/WHITE"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btn_splash_signup"
+            android:background="@drawable/splash_btn_style"
+            android:paddingTop="5dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="@string/signup_decribe"
+            android:textColor="@color/WHITE"
+            android:textSize="18sp"
+            android:visibility="visible"
+            android:layout_marginLeft="150dp" />
+    </RelativeLayout>
+
 </FrameLayout>

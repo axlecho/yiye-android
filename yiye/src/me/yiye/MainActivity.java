@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.yiye.utils.Tools;
 import me.yiye.utils.YiyeApi;
 
 
@@ -46,10 +47,12 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         upDateMainFragment();
+        Tools.getInstance().exit(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
     }
 
     protected void onStart() {
         super.onStart();
+
     }
 
     private void upDateMainFragment() {

@@ -8,34 +8,44 @@ import me.yiye.contents.ChannelEx;
 import me.yiye.contents.User;
 
 public interface YiyeApi {
-	public List<Channel> getBookedChannels(); // 获取订阅的频道
+
+    public List<Channel> getBookedChannels(); // 获取订阅的频道
+
     public List<BookMark> getBookMarksByChannelId(String channelId);
 
-	public String login(String email,String keyword);
-	public String logout();
-	public String getUserInfo();
+    public String login(String email, String keyword);
+
+    public String logout();
+
+    public String getUserInfo();
+
     public List<ChannelEx> search(String keyword);
+
     public List<ChannelEx> getChannelByPage(int i);
+
     public String bookChannel(ChannelEx c);
 
-	public boolean isOnline(User user);
-	public final static String TESTHOST = "http://axlecho.me:5000/";
-	public final static String BOOKEDCHANNELS = "api/channel/all";
-	public final static String LOGIN = "api/account/login";
-	public final static String LOGOUT = "api/account/logout";
-	public final static String USERINFO = "api/user/me";
-	public final static String BOOKMARKINCHANNEL = "api/bookmarks/oneDay/";
-	public final static String DISCOVERY = "api/discovery/";
+    public boolean isOnline(User user);
+
+    public final static String TESTHOST = "http://axlecho.me:5000/";
+    public final static String BOOKEDCHANNELS = "api/channel/all";
+    public final static String LOGIN = "api/account/login";
+    public final static String LOGOUT = "api/account/logout";
+    public final static String USERINFO = "api/user/me";
+    public final static String BOOKMARKINCHANNEL = "api/bookmarks/init";
+    public final static String DISCOVERY = "api/discovery/";
     public final static String ALLCHANNEL = "api/home/discover"; // 按页获取图片
     public final static String BOOKCHANNEL = "channel/sub/";
 
 
-	public final static String PICCDN = "http://yiye.qiniudn.com/";
-	public final static String PICSCALEPARAM = "?imageView2/0/w/400";
-	public String getError();
-	
-	public final static String ERRORNOLOGIN = "请先登录或注册";
-    public final static String ERROROFFLINE = "请检查你的网络";
+    public final static String PICCDN = "http://yiye.qiniudn.com/";
+    public final static String PICSCALEPARAM = "?imageView2/0/w/400";
 
+
+    public String getError();
+
+    public final static String ERRORNOLOGIN = "请先登录或注册";
+    public final static String ERROROFFLINE = "请检查你的网络";
+    public final static String ERRORDECODE = "解码错误";
 
 }

@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class YiyeApiImp implements YiyeApi {
 
     @Override
     public List<BookMark> getBookMarksByChannelId(String channelId) {
-        String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL + channelId, "");
+        String ret = NetworkUtil.get(context, YiyeApi.TESTHOST + YiyeApi.BOOKMARKINCHANNEL, "?channelId=" + channelId);
         if (ret == null) {
             MLog.e(TAG, "getBookMarksByChannel### network return null");
             return null;
@@ -55,11 +56,19 @@ public class YiyeApiImp implements YiyeApi {
 
         MLog.d(TAG, "getBookMarksByChannel### ret:" + ret);
         try {
+            ret = java.net.URLDecoder.decode(ret,"UTF-8");
             JSONObject o = new JSONObject(ret);
             JSONArray list = o.getJSONArray("list");
-            MLog.d(TAG, "getBookMarksByChannel### " + list.toString());
-            YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, list.toString());
+            JSONObject dlist = list.getJSONObject(0);
+            JSONArray dlistArray = dlist.getJSONArray("dList");
+
+            MLog.d(TAG, "getBookMarksByChannel### " + dlistArray.toString());
+            YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, dlistArray.toString());
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            errorString = YiyeApi.ERRORDECODE;
+            MLog.e(TAG,"解码错误");
             e.printStackTrace();
         }
         return bookmarkList;
