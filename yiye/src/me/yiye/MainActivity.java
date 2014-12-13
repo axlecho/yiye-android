@@ -12,13 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.ArrayList;
@@ -27,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 import me.yiye.utils.Tools;
-import me.yiye.utils.YiyeApi;
 
 
 public class MainActivity extends FragmentActivity {
@@ -43,11 +39,67 @@ public class MainActivity extends FragmentActivity {
             .considerExifParams(true)
             .build();
 
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    ActionBarDrawerToggle mDrawerToggle;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Tools.getInstance().exit(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
         setContentView(R.layout.activity_main);
         upDateMainFragment();
-        Tools.getInstance().exit(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
+        initDrawerLayout();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    private void initDrawerLayout() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_main);
+        mDrawerList = (ListView) findViewById(R.id.list_drawer_main);
+        View header = View.inflate(this, R.layout.view_main_drawer_header, null);
+        mDrawerList.addHeaderView(header);
+
+        String[] planetTitles = new String[]{"首页", "发现", "个人", "关于", "设置"};
+        int[] icos = new int[]{R.drawable.ic_drawer_home_normal,
+                R.drawable.ic_drawer_explore_normal,
+                R.drawable.ic_action_person,
+                R.drawable.ic_drawer_about,
+                R.drawable.ic_drawer_setting_normal};
+        List<Map<String, Object>> drawerContentList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < icos.length; i++) {
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("ico", icos[i]);
+            m.put("title", planetTitles[i]);
+            drawerContentList.add(m);
+        }
+
+        String[] from = new String[]{"ico", "title"};
+        int[] to = new int[]{R.id.imageview_main_drawer_ico, R.id.textview_main_drawer_text};
+
+        mDrawerList.setAdapter(new SimpleAdapter(this, drawerContentList, R.layout.item_main_drawer_list, from, to));
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(R.string.drawer_close);
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(R.string.drawer_open);
+                invalidateOptionsMenu();
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+
     }
 
     protected void onStart() {
@@ -74,6 +126,10 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.menu_main_search:
                 SearchActivity.launch(this);
@@ -87,4 +143,17 @@ public class MainActivity extends FragmentActivity {
         return false;
 
     }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
 }
