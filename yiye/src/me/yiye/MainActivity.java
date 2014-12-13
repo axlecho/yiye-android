@@ -1,5 +1,6 @@
 package me.yiye;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -43,11 +44,13 @@ public class MainActivity extends FragmentActivity {
     private ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
 
+    private String mActivityTitle;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Tools.getInstance().exit(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
         setContentView(R.layout.activity_main);
-        upDateMainFragment();
+        upDateMainFragment(new PacketFragment());
         initDrawerLayout();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(true);
@@ -95,10 +98,24 @@ public class MainActivity extends FragmentActivity {
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Fragment activityFragment = null;
+                switch(pos) {
+                    case 1: activityFragment = new PacketFragment(); break;
+                    case 2: activityFragment = new SearchFragment(); break;
+                    case 3: activityFragment = new PersonalFragment(); break;
+                    case 4: activityFragment = new AboutFragment(); break;
+                    case 5: break;
+                    default:break;
+                }
+                if(activityFragment != null) {
+                    upDateMainFragment(activityFragment);
+                }
+                mDrawerLayout.closeDrawers();
             }
         });
+
+        mDrawerList.setItemChecked(1, true); // 设置第一项被按下
 
     }
 
@@ -107,8 +124,7 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    private void upDateMainFragment() {
-        Fragment packetFragment = new PacketFragment();
+    private void upDateMainFragment(Fragment packetFragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main, packetFragment).commit();
     }
 
@@ -119,29 +135,11 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
-        switch (item.getItemId()) {
-            case R.id.menu_main_search:
-                SearchActivity.launch(this);
-                break;
-            case R.id.menu_main_personal:
-                PersonalActivity.launch(this);
-                break;
-            default:
-                break;
-        }
         return false;
-
     }
 
     @Override
@@ -155,5 +153,4 @@ public class MainActivity extends FragmentActivity {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
 }

@@ -4,25 +4,22 @@
     android:layout_height="wrap_content"
     android:background="@color/activitybackgroud"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bookmarklistitem_style"
         android:orientation="vertical"
-        android:paddingLeft="10dp">
+        android:padding="7dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageview_bookmark_item"
-                android:layout_width="100dp"
+                android:layout_width="90dp"
                 android:layout_height="75dp"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/bookmark_image_describe"
@@ -34,12 +31,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@id/imageview_bookmark_item"
                 android:text="@string/default_bookmark_title"
                 android:textSize="18sp"
                 android:maxLines="3"
-                android:ellipsize="end"/>
+                android:ellipsize="end" />
 
 
         </RelativeLayout>
