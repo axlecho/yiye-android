@@ -1,38 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listitem_style">
+    android:background="@color/activitybackgroud"
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/imageview_channel_item"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bookmarklistitem_style">
 
-    <TextView
-        android:id="@+id/textview_channel_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/imageview_channel_item"
-        android:text="科技"
-        android:ellipsize="end"
-        android:textSize="22sp"
-        android:singleLine="true" />
+        <ImageView
+            android:id="@+id/imageview_channel_item"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/textview_channel_item_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview_channel_item_title"
-        android:layout_toRightOf="@id/imageview_channel_item"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="iphone android google 一页  两页 三页 四页 五页 六页 七页"
-        android:textSize="12sp" />
+        <TextView
+            android:id="@+id/textview_channel_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/imageview_channel_item"
+            android:text="科技"
+            android:ellipsize="end"
+            android:textSize="22sp"
+            android:singleLine="true" />
 
-</RelativeLayout>
+        <TextView
+            android:padding="5dp"
+            android:background="@drawable/btn_style"
+            android:id="@+id/btn_packet_item_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订阅"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/textview_channel_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_channel_item_title"
+            android:layout_toRightOf="@id/imageview_channel_item"
+            android:layout_toLeftOf="@id/btn_packet_item_book"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="iphone android google 一页  两页 三页 四页 五页 六页 七页"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+</LinearLayout>

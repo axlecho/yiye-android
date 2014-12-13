@@ -43,9 +43,8 @@ public class SearchActivity extends BaseActivity {
 		initSearch();
         initAllChannelList();
 	}
-	
 
-	private void initSearch() {
+    private void initSearch() {
 		
 		final Button search = (Button) this.findViewById(R.id.btn_search);
 		search.setOnClickListener(new OnClickListener() {
