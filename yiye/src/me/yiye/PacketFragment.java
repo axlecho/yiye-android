@@ -44,7 +44,7 @@ public class PacketFragment extends Fragment {
 	private ChannelsListAdapter dataadpter;
     private PullToRefreshLayout mPullToRefreshLayout;
 	private ListView mainDataListView;
-
+    private View emptyInfoView;
 
     private static AsyncTask freshAsyncTask;
 	@Override
@@ -57,6 +57,7 @@ public class PacketFragment extends Fragment {
 	}
 	
 	private void init(View v) {
+        emptyInfoView = v.findViewById(R.id.imageview_packet_emptyinfo);
 		dataadpter = new ChannelsListAdapter(this.getActivity());
         mPullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.pulltorefreshlayout_channel);
         ActionBarPullToRefresh.from(this.getActivity())
@@ -130,6 +131,7 @@ public class PacketFragment extends Fragment {
 			RoundedImageView channelLogoImageView;
 			TextView channelNameTextView;
 			TextView newsTextView;
+            TextView timeTextView;
 			Channel c = channels.get(pos);
 
 			if (convertView == null) {
@@ -144,10 +146,16 @@ public class PacketFragment extends Fragment {
 			channelLogoImageView.setCornerRadius(4.0f);
 			ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + c.logo + YiyeApi.PICSCALEPARAM, channelLogoImageView,imageoptions);
 			
-			channelNameTextView = (TextView) v.findViewById(R.id.textview_over_item_notice);
+			channelNameTextView = (TextView) v.findViewById(R.id.textview_packet_item_notice);
 			channelNameTextView.setText(c.name);
-			newsTextView = (TextView) v.findViewById(R.id.textview_over_item_news);
+			newsTextView = (TextView) v.findViewById(R.id.textview_packet_item_news);
 			newsTextView.setText(c.news + "");
+            if(c.news <= 0) {
+                newsTextView.setVisibility(View.INVISIBLE);
+            }
+
+            timeTextView = (TextView) v.findViewById(R.id.textview_packet_item_time);
+            timeTextView.setText(c.lastTime);
 			return v;
 		}
 		
@@ -187,6 +195,11 @@ public class PacketFragment extends Fragment {
 			protected void onPostExecute(List<Channel> list) {
 				dataadpter.setData(list);
 				dataadpter.notifyDataSetChanged();
+                if (list.size() == 0) {
+                    emptyInfoView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyInfoView.setVisibility(View.GONE);
+                }
                 freshAsyncTask = null;
                 if(listener != null) {
                     listener.freshComplete(list);

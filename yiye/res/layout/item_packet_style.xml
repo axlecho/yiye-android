@@ -7,27 +7,26 @@
     <com.makeramen.RoundedImageView
         android:id="@+id/imageview_packet_item_background"
         android:padding="5dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/textview_over_item_news"
+        android:id="@+id/textview_packet_item_news"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom|right"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:padding="5dp"
+        android:layout_height="wrap_content"
         android:text="@string/default_packetitem_newnumber_describe"
-        android:textColor="@color/Purple500"
-        android:textSize="14sp" />
+        android:textColor="@color/Purple600"
+        android:textSize="14sp"
+        android:layout_alignTop="@id/imageview_packet_item_background"
+        android:layout_toRightOf="@id/imageview_packet_item_background"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="-15dp" />
 
     <TextView
-        android:id="@+id/textview_over_item_notice"
+        android:id="@+id/textview_packet_item_notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -42,4 +41,14 @@
         android:layout_toRightOf="@id/imageview_packet_item_background" />
 
 
+    <TextView
+        android:id="@+id/textview_packet_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/imageview_packet_item_background"
+        android:textSize="14dp"
+        android:textColor="@color/Grey400"
+        android:text="11-12"
+        android:padding="5dp"/>
 </RelativeLayout>

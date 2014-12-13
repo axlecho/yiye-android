@@ -12,7 +12,8 @@
             android:id="@+id/listview_channel_bookmarks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center" />
+            android:gravity="center"
+            android:divider="@null" />
 
     </uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout>
 

@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/pulltorefreshlayout_channel"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<ListView
-    android:id="@+id/listview_main_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    />
+    android:layout_height="match_parent">
 
-</uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout>
+    <uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout
+        android:id="@+id/pulltorefreshlayout_channel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listview_main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+    </uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout>
+
+
+    <ImageView
+        android:id="@+id/imageview_packet_emptyinfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_no_channel"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
+</FrameLayout>
