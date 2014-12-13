@@ -21,7 +21,7 @@ public class Channel {
 		return "[channelId:" + channelId + " name:" + name + " logo:" + logo + " type:" + type + " news:" + news + "lasttime:" + lastTime + "]";
 	}
 	
-	public static Channel buildFromJosnObject(JSONObject o) throws JSONException {
+	public static Channel buildFromJsonObject(JSONObject o) throws JSONException {
 		Channel c = new Channel();
 		c.channelId = o.getString("channelId");
 		c.name = o.getString("name");
@@ -29,7 +29,7 @@ public class Channel {
 		c.type = o.getString("type");
 		c.lastTime = o.getString("lastTime");
 		c.news = o.getInt("news");
-		MLog.d(TAG, "buildFromJosnObject### " + c.toString());
+		MLog.d(TAG, "buildFromJsonObject### " + c.toString());
 		return c;
 	}
 	

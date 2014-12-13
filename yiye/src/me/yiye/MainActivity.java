@@ -42,9 +42,17 @@ public class MainActivity extends FragmentActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    ActionBarDrawerToggle mDrawerToggle;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     private String mActivityTitle;
+    private String mDrawderTitile;
+
+    String[] planetTitles = new String[]{"首页", "发现", "个人", "关于", "设置"};
+    int[] icos = new int[]{R.drawable.ic_drawer_home_normal,
+            R.drawable.ic_drawer_explore_normal,
+            R.drawable.ic_action_person,
+            R.drawable.ic_drawer_about,
+            R.drawable.ic_drawer_setting_normal};
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,8 @@ public class MainActivity extends FragmentActivity {
         initDrawerLayout();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(true);
+
+        mDrawderTitile = getResources().getString(R.string.app_name);
     }
 
     private void initDrawerLayout() {
@@ -62,12 +72,7 @@ public class MainActivity extends FragmentActivity {
         View header = View.inflate(this, R.layout.view_main_drawer_header, null);
         mDrawerList.addHeaderView(header);
 
-        String[] planetTitles = new String[]{"首页", "发现", "个人", "关于", "设置"};
-        int[] icos = new int[]{R.drawable.ic_drawer_home_normal,
-                R.drawable.ic_drawer_explore_normal,
-                R.drawable.ic_action_person,
-                R.drawable.ic_drawer_about,
-                R.drawable.ic_drawer_setting_normal};
+
         List<Map<String, Object>> drawerContentList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < icos.length; i++) {
             Map<String, Object> m = new HashMap<String, Object>();
@@ -84,12 +89,12 @@ public class MainActivity extends FragmentActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(R.string.drawer_close);
+                getActionBar().setTitle(mActivityTitle);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(R.string.drawer_open);
+                getActionBar().setTitle(mDrawderTitile);
                 invalidateOptionsMenu();
             }
         };
@@ -108,7 +113,9 @@ public class MainActivity extends FragmentActivity {
                     case 5: break;
                     default:break;
                 }
+
                 if(activityFragment != null) {
+                    mActivityTitle = planetTitles[pos -1];
                     upDateMainFragment(activityFragment);
                 }
                 mDrawerLayout.closeDrawers();

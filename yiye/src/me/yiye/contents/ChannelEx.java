@@ -48,7 +48,7 @@ public class ChannelEx{
             String tag = tagsJsonArray.getString(i);
             c.tags.add(tag);
         }
-        MLog.d(TAG, "buildFromJosnObject### " + c.toString());
+        MLog.d(TAG, "buildFromJsonObject### " + c.toString());
         return c;
     }
 }

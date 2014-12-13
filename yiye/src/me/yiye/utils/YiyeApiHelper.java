@@ -51,7 +51,7 @@ public class YiyeApiHelper {
 			channelArray = new JSONArray(result);
 			for (int i = 0; i < channelArray.length(); i++) {
 				JSONObject o = channelArray.getJSONObject(i);
-				c = Channel.buildFromJosnObject(o);
+				c = Channel.buildFromJsonObject(o);
 				channelList.add(c);
 				SQLManager.saveChannel(context, c);
 			}
