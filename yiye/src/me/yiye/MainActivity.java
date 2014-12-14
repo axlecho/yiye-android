@@ -1,10 +1,8 @@
 package me.yiye;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -17,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,10 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.yiye.utils.MLog;
 import me.yiye.utils.Tools;
 import me.yiye.utils.YiyeApi;
-import me.yiye.utils.YiyeApiImp;
 
 
 public class MainActivity extends FragmentActivity {
@@ -71,7 +66,7 @@ public class MainActivity extends FragmentActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(true);
 
-        drawderTitile = getResources().getString(R.string.drawer_open);
+
     }
 
     private void initDrawerLayout() {
@@ -142,6 +137,7 @@ public class MainActivity extends FragmentActivity {
         });
 
         drawerListView.setItemChecked(1, true); // 设置第一项被按下
+        drawderTitile = getResources().getString(R.string.drawer_open);
 
     }
 
