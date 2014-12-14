@@ -8,11 +8,13 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.yiye.utils.MLog;
 import me.yiye.utils.Tools;
 import me.yiye.utils.YiyeApi;
 
@@ -57,6 +60,7 @@ public class MainActivity extends FragmentActivity {
             R.drawable.ic_drawer_setting_normal};
 
     private View header;
+    private MenuItem searchMenuItem;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Tools.getInstance().cleanActivityStack(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
@@ -104,7 +108,6 @@ public class MainActivity extends FragmentActivity {
         };
 
         drawerLayout.setDrawerListener(drawerToggle);
-
         drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -154,6 +157,18 @@ public class MainActivity extends FragmentActivity {
         Intent i = new Intent();
         i.setClass(context, MainActivity.class);
         context.startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        searchMenuItem = menu.findItem(R.id.menu_main_search);
+//        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+//        if (searchView == null) {
+//            MLog.e(TAG,"onCreateOptionsMenu### Fail to get Search View.");
+//            return true;
+//        }
+        return true;
     }
 
     @Override
