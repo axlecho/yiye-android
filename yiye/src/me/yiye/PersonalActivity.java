@@ -1,12 +1,10 @@
 package me.yiye;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,9 +13,6 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import me.yiye.utils.MLog;
 import me.yiye.utils.Tools;

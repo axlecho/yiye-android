@@ -24,11 +24,13 @@ public class Tools {
     }
 
     // 关闭所有打开的activity
-    private List<Activity> mList = new LinkedList<Activity>();
+    private List<Activity> mActivityList = new LinkedList<Activity>();
     private static Tools instance;
-    private Tools(){}
 
-    public synchronized static Tools getInstance(){
+    private Tools() {
+    }
+
+    public synchronized static Tools getInstance() {
         if (null == instance) {
             instance = new Tools();
         }
@@ -36,12 +38,12 @@ public class Tools {
     }
 
     public void addActivity(Activity activity) {
-        mList.add(activity);
+        mActivityList.add(activity);
     }
 
-    public void exit() {
+    public void cleanActivityStack() {
         try {
-            for (Activity activity:mList) {
+            for (Activity activity : mActivityList) {
                 if (activity != null)
                     activity.finish();
             }

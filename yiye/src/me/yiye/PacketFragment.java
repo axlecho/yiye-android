@@ -18,8 +18,13 @@ import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import me.yiye.contents.Channel;
 import me.yiye.utils.MLog;
@@ -154,8 +159,17 @@ public class PacketFragment extends Fragment {
                 newsTextView.setVisibility(View.INVISIBLE);
             }
 
+            DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
+            DateFormat fmt2 = new SimpleDateFormat("MM-dd", Locale.CHINA);
+            String timeString = c.lastTime;
+            try {
+                Date time = fmt.parse(c.lastTime);
+                timeString = fmt2.format(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             timeTextView = (TextView) v.findViewById(R.id.textview_packet_item_time);
-            timeTextView.setText(c.lastTime);
+            timeTextView.setText(timeString);
 			return v;
 		}
 		

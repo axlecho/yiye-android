@@ -23,7 +23,7 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        Tools.getInstance().exit();
+        Tools.getInstance().cleanActivityStack();
         Tools.getInstance().addActivity(this);
         loginBtn = (Button) findViewById(R.id.btn_splash_login);
         logoImageView = (ImageView) findViewById(R.id.imageview_splash_logo);

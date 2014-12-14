@@ -9,7 +9,7 @@ import java.util.List;
 
 import me.yiye.utils.MLog;
 
-public class ChannelEx{
+public class ChannelEx {
     private final static String TAG = "ChannelEx";
     public String id;
     public String logo;
@@ -44,7 +44,7 @@ public class ChannelEx{
 
         c.tags = new ArrayList<String>();
         JSONArray tagsJsonArray = o.getJSONArray("tags");
-        for(int i = 0;i < tagsJsonArray.length();++ i) {
+        for (int i = 0; i < tagsJsonArray.length(); ++i) {
             String tag = tagsJsonArray.getString(i);
             c.tags.add(tag);
         }

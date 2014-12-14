@@ -1,22 +1,26 @@
 package me.yiye;
 
-import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.ArrayList;
@@ -24,7 +28,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.yiye.utils.MLog;
 import me.yiye.utils.Tools;
+import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
 
 
 public class MainActivity extends FragmentActivity {
@@ -40,39 +47,41 @@ public class MainActivity extends FragmentActivity {
             .considerExifParams(true)
             .build();
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout drawerLayout;
+    private ListView drawerListView;
+    private ActionBarDrawerToggle drawerToggle;
 
-    private String mActivityTitle;
-    private String mDrawderTitile;
+    private String activityTitle;
+    private String drawderTitile;
 
-    String[] planetTitles = new String[]{"首页", "发现", "个人", "关于", "设置"};
+    String[] planetTitles = new String[]{"首页", "发现", "关于", "设置"};
+
     int[] icos = new int[]{R.drawable.ic_drawer_home_normal,
             R.drawable.ic_drawer_explore_normal,
-            R.drawable.ic_action_person,
             R.drawable.ic_drawer_about,
             R.drawable.ic_drawer_setting_normal};
 
+    private View header;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Tools.getInstance().exit(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
+        Tools.getInstance().cleanActivityStack(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
         setContentView(R.layout.activity_main);
         upDateMainFragment(new PacketFragment());
         initDrawerLayout();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(true);
 
-        mDrawderTitile = getResources().getString(R.string.app_name);
+        drawderTitile = getResources().getString(R.string.drawer_open);
     }
 
     private void initDrawerLayout() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_main);
-        mDrawerList = (ListView) findViewById(R.id.list_drawer_main);
-        View header = View.inflate(this, R.layout.view_main_drawer_header, null);
-        mDrawerList.addHeaderView(header);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_main);
+        drawerListView = (ListView) findViewById(R.id.list_drawer_main);
+        header = View.inflate(this, R.layout.view_main_drawer_header, null);
+        drawerListView.addHeaderView(header);
 
 
+        setUserInfo();
         List<Map<String, Object>> drawerContentList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < icos.length; i++) {
             Map<String, Object> m = new HashMap<String, Object>();
@@ -84,45 +93,55 @@ public class MainActivity extends FragmentActivity {
         String[] from = new String[]{"ico", "title"};
         int[] to = new int[]{R.id.imageview_main_drawer_ico, R.id.textview_main_drawer_text};
 
-        mDrawerList.setAdapter(new SimpleAdapter(this, drawerContentList, R.layout.item_main_drawer_list, from, to));
+        drawerListView.setAdapter(new SimpleAdapter(this, drawerContentList, R.layout.item_main_drawer_list, from, to));
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mActivityTitle);
+                getActionBar().setTitle(activityTitle);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawderTitile);
+                getActionBar().setTitle(drawderTitile);
                 invalidateOptionsMenu();
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        drawerLayout.setDrawerListener(drawerToggle);
 
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Fragment activityFragment = null;
-                switch(pos) {
-                    case 1: activityFragment = new PacketFragment(); break;
-                    case 2: activityFragment = new SearchFragment(); break;
-                    case 3: activityFragment = new PersonalFragment(); break;
-                    case 4: activityFragment = new AboutFragment(); break;
-                    case 5: break;
-                    default:break;
+                switch (pos) {
+                    case 0:
+                        PersonalActivity.launch(MainActivity.this);
+                        break;
+                    case 1:
+                        activityFragment = new PacketFragment();
+                        break;
+                    case 2:
+                        activityFragment = new SearchFragment();
+                        break;
+                    case 3:
+                        activityFragment = new AboutFragment();
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        break;
                 }
 
-                if(activityFragment != null) {
-                    mActivityTitle = planetTitles[pos -1];
+                if (activityFragment != null) {
+                    activityTitle = planetTitles[pos - 1];
                     upDateMainFragment(activityFragment);
                 }
-                mDrawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();
             }
         });
 
-        mDrawerList.setItemChecked(1, true); // 设置第一项被按下
+        drawerListView.setItemChecked(1, true); // 设置第一项被按下
 
     }
 
@@ -143,7 +162,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return false;
@@ -152,12 +171,26 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+        drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+    private void setUserInfo() {
+        // 设置头像
+        ImageView userimageView = (ImageView) header.findViewById(R.id.imageview_personal_userimg);
+        TextView usernameTextView = (TextView) header.findViewById(R.id.textview_personal_username);
+        if (YiyeApplication.user != null) { // 若已经登陆，设置头像及姓名
+            ImageLoader.getInstance().displayImage(YiyeApi.PICCDN + YiyeApplication.user.avatar, userimageView, imageoptions);
+            usernameTextView.setText(YiyeApplication.user.username);
+        } else {
+            userimageView.setImageResource(R.drawable.ic_launcher);
+            usernameTextView.setText(this.getResources().getString(R.string.username_no_authentication));
+        }
     }
 }

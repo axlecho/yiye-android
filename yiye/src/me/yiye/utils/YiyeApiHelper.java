@@ -88,5 +88,4 @@ public class YiyeApiHelper {
 			e.printStackTrace();
 		}
 	}
-
 }
