@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:padding="8dp">
 
     <com.makeramen.RoundedImageView
         android:id="@+id/imageview_packet_item_background"
-        android:padding="5dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="center"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/textview_packet_item_news"
@@ -32,12 +32,11 @@
         android:layout_gravity="bottom"
         android:text="@string/default_packetitem_describe"
         android:textColor="@color/Grey700"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignTop="@id/imageview_packet_item_background"
+        android:padding="8dp"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/imageview_packet_item_background" />
 
 
@@ -47,8 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/imageview_packet_item_background"
-        android:textSize="14dp"
+        android:textSize="12dp"
         android:textColor="@color/Grey400"
-        android:text="11-12"
-        android:padding="5dp"/>
+        android:text="11-12" />
 </RelativeLayout>
