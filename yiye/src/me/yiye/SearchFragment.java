@@ -61,7 +61,7 @@ public class SearchFragment extends Fragment {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                bookChannel(channelsListAdapter.getItem(pos), new YiyeApiImp(SearchFragment.this.getActivity()));
+                                SearchFragment.bookChannel(SearchFragment.this.getActivity() ,channelsListAdapter.getItem(pos), new YiyeApiImp(SearchFragment.this.getActivity()));
                             }
                         })
                         .setNegativeButton("取消", null)
@@ -86,7 +86,7 @@ public class SearchFragment extends Fragment {
         mPullToRefreshLayout.setRefreshing(true);
     }
 
-    private void bookChannel(final ChannelEx c, final YiyeApi api) {
+    public static void bookChannel(final Context context,final ChannelEx c, final YiyeApi api) {
 
         new AsyncTask<Void, Void, String>() {
 
@@ -104,13 +104,13 @@ public class SearchFragment extends Fragment {
             @Override
             protected void onPostExecute(String ret) {
                 //TODO 判断添加成功
-                Toast.makeText(SearchFragment.this.getActivity(), "添加书签成功", Toast.LENGTH_LONG).show(); // 显示成功信息
+                Toast.makeText(context, "添加书签成功", Toast.LENGTH_LONG).show(); // 显示成功信息
                 super.onPostExecute(ret);
             }
 
             @Override
             protected void onCancelled() {
-                Toast.makeText(SearchFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+                Toast.makeText(context, api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
                 super.onCancelled();
             }
         }.execute();

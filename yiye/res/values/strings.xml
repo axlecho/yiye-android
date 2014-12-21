@@ -46,4 +46,6 @@
     <string name="drawer_open"> 一叶</string>
     <string name="drawer_close">频道</string>
     <string name="delectupdate_decribe">更新检测</string>
+    <string name="booked_decribe">已订阅</string>
+    <string name="book_decribe">订阅</string>
 </resources>

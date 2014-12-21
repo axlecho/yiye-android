@@ -4,19 +4,19 @@
     android:layout_height="wrap_content"
     android:background="@color/activitybackgroud"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="8dp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="64dp"
+        android:padding="12dp"
         android:background="@drawable/bookmarklistitem_style">
 
         <ImageView
             android:id="@+id/imageview_channel_item"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_launcher" />
 
@@ -24,12 +24,14 @@
             android:id="@+id/textview_channel_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_alignTop="@id/imageview_channel_item"
             android:layout_toRightOf="@id/imageview_channel_item"
+            android:layout_marginLeft="8dp"
             android:text="科技"
             android:ellipsize="end"
-            android:textSize="22sp"
-            android:singleLine="true" />
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:paddingTop="4dp" />
 
         <TextView
             android:padding="5dp"
@@ -37,11 +39,11 @@
             android:id="@+id/btn_packet_item_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="订阅"
+            android:text="@string/book_decribe"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="4dp"
             android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:textColor="@color/WHITE" />
 
         <TextView
             android:id="@+id/textview_channel_item_content"
@@ -50,6 +52,7 @@
             android:layout_below="@id/textview_channel_item_title"
             android:layout_toRightOf="@id/imageview_channel_item"
             android:layout_toLeftOf="@id/btn_packet_item_book"
+            android:layout_alignLeft="@id/textview_channel_item_title"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="iphone android google 一页  两页 三页 四页 五页 六页 七页"

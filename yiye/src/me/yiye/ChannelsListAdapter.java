@@ -2,9 +2,11 @@ package me.yiye;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +16,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yiye.contents.Channel;
 import me.yiye.contents.ChannelEx;
 import me.yiye.utils.YiyeApi;
+import me.yiye.utils.YiyeApiImp;
 
 class ChannelsListAdapter extends BaseAdapter {
 
@@ -58,6 +62,7 @@ class ChannelsListAdapter extends BaseAdapter {
         ImageView channelLogoImageView;
         TextView channelNameTextView;
         TextView channelDescriptionTextView;
+        TextView channelBookBtn;
         ChannelEx c = channels.get(pos);
         if (convertView == null) {
             v = View.inflate(context, R.layout.item_channel_style, null);
@@ -74,6 +79,12 @@ class ChannelsListAdapter extends BaseAdapter {
         channelDescriptionTextView = (TextView) v.findViewById(R.id.textview_channel_item_content);
         channelDescriptionTextView.setText(c.description);
 
+        channelBookBtn = (TextView) v.findViewById(R.id.btn_packet_item_book);
+        if (c.isAttention) {
+            channelBookBtn.setText(context.getResources().getString(R.string.booked_decribe));
+            channelBookBtn.setEnabled(false);
+        }
+        channelBookBtn.setOnClickListener(new ItemOnClickListener(this.getItem(pos)));
         return v;
     }
 
@@ -85,4 +96,20 @@ class ChannelsListAdapter extends BaseAdapter {
 
         this.channels = channels;
     }
+
+    class ItemOnClickListener implements View.OnClickListener {
+
+        public ItemOnClickListener(ChannelEx c) {
+            this.c = c;
+        }
+
+        private ChannelEx c;
+
+        @Override
+        public void onClick(View view) {
+            SearchFragment.bookChannel(context, c, new YiyeApiImp(context));
+        }
+    }
+
+
 }

@@ -27,7 +27,7 @@ public class ChannelEx {
     @Override
     public String toString() {
         return "[id:" + id + " logo:" + logo + " name:" + name + " description:" + description + " time:" + time + " type:" + type +
-                " banner:" + banner + " creator:" + creator + " bmkNum:" + bmkNum + " subNum" + subNum + " tags:" + tags + "isAttention" + isAttention + "]";
+                " banner:" + banner + " creator:" + creator + " bmkNum:" + bmkNum + " subNum" + subNum + " tags:" + tags + " isAttention:" + isAttention + "]";
     }
 
     public static ChannelEx buildFromJosnObject(JSONObject o) throws JSONException {
