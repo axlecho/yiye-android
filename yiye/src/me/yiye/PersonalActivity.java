@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 
 import me.yiye.utils.MLog;
 import me.yiye.utils.Tools;
@@ -144,5 +145,16 @@ public class PersonalActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面
+        MobclickAgent.onResume(this);          //统计时长
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPause(this);
     }
 }

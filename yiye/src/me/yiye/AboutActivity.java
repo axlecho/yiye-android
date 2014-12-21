@@ -7,11 +7,14 @@ import android.text.TextPaint;
 import android.view.View;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import me.yiye.contents.BookMark;
 
 
 public class AboutActivity extends BaseActivity {
 
+    private static final String TAG = "AboutActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,17 @@ public class AboutActivity extends BaseActivity {
         Intent i = new Intent();
         i.setClass(context, AboutActivity.class);
         context.startActivity(i);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面
+        MobclickAgent.onResume(this);          //统计时长
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPause(this);
     }
 }
 

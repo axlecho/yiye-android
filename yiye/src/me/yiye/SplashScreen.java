@@ -10,10 +10,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import me.yiye.utils.Tools;
 
 public class SplashScreen extends Activity {
-
+    private final static String TAG = "SplashScreen";
     private ImageView slashBgImageView;
     private ImageView logoImageView;
     private Button loginBtn;
@@ -84,5 +86,16 @@ public class SplashScreen extends Activity {
         Intent i = new Intent();
         i.setClass(context, SplashScreen.class);
         context.startActivity(i);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面
+        MobclickAgent.onResume(this);          //统计时长
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPause(this);
     }
 }

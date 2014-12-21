@@ -60,7 +60,7 @@ public class YiyeApiImp implements YiyeApi {
             JSONObject o = new JSONObject(ret);
             JSONArray list = o.getJSONArray("list");
             JSONObject dlist = list.getJSONObject(0);
-            JSONArray dlistArray = dlist.getJSONArray("dList");
+            JSONArray dlistArray = dlist.getJSONArray("dList"); //
 
             MLog.d(TAG, "getBookMarksByChannel### " + dlistArray.toString());
             YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, dlistArray.toString());

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -203,5 +204,17 @@ public class MainActivity extends FragmentActivity {
             userimageView.setImageResource(R.drawable.ic_launcher);
             usernameTextView.setText(this.getResources().getString(R.string.username_no_authentication));
         }
+    }
+
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面
+        MobclickAgent.onResume(this);          //统计时长
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPause(this);
     }
 }

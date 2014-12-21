@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+
 import me.yiye.contents.BookMark;
 import me.yiye.customwidget.ConstomWebView;
 import me.yiye.customwidget.SmoothProgressBar;
@@ -169,4 +171,15 @@ public class BookMarkActivity extends BaseActivity {
 		i.setClass(context, BookMarkActivity.class);
 		context.startActivity(i);
 	}
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面
+        MobclickAgent.onResume(this);          //统计时长
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
+        MobclickAgent.onPause(this);
+    }
 }

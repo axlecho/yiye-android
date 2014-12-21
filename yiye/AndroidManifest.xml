@@ -4,6 +4,11 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -69,6 +74,8 @@
             android:name=".PersonalActivity"
             android:launchMode="singleTask"
             android:theme="@style/NormalActivityTheme" />
+        <meta-data android:value="548010e5fd98c525e0000d1a" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="unknown" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

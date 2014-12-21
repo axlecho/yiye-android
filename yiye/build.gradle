@@ -12,6 +12,7 @@ dependencies {
     compile 'com.makeramen:roundedimageview:1.5.0'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abs:+'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
 
 android {
