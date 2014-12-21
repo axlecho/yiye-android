@@ -4,14 +4,14 @@
     android:layout_height="wrap_content"
     android:background="@color/activitybackgroud"
     android:orientation="horizontal"
-    android:padding="7dp">
+    android:padding="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bookmarklistitem_style"
         android:orientation="vertical"
-        android:padding="7dp">
+        android:padding="8dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"

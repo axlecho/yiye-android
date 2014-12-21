@@ -19,6 +19,7 @@ public class ChannelEx {
     public String type;
     public String banner;
     public String creator;
+    public boolean isAttention;
     public int bmkNum;
     public int subNum;
     public List<String> tags;
@@ -26,7 +27,7 @@ public class ChannelEx {
     @Override
     public String toString() {
         return "[id:" + id + " logo:" + logo + " name:" + name + " description:" + description + " time:" + time + " type:" + type +
-                " banner:" + banner + " creator:" + creator + " bmkNum:" + bmkNum + " subNum" + subNum + " tags:" + tags + "]";
+                " banner:" + banner + " creator:" + creator + " bmkNum:" + bmkNum + " subNum" + subNum + " tags:" + tags + "isAttention" + isAttention + "]";
     }
 
     public static ChannelEx buildFromJosnObject(JSONObject o) throws JSONException {
@@ -41,7 +42,7 @@ public class ChannelEx {
         c.creator = o.getString("creator");
         c.bmkNum = o.getInt("bmkNum");
         c.subNum = o.getInt("subNum");
-
+        c.isAttention = o.getBoolean("isAttention");
         c.tags = new ArrayList<String>();
         JSONArray tagsJsonArray = o.getJSONArray("tags");
         for (int i = 0; i < tagsJsonArray.length(); ++i) {
