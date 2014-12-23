@@ -113,6 +113,7 @@ public class ResultActivity extends BaseActivity {
             protected void onPostExecute(String ret) {
                 //TODO 判断添加成功
                 Toast.makeText(ResultActivity.this, "添加书签成功", Toast.LENGTH_LONG).show(); // 显示成功信息
+                freshdata(api);
                 super.onPostExecute(ret);
             }
 

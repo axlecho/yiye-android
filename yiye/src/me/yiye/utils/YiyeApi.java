@@ -19,7 +19,7 @@ public interface YiyeApi {
     public String bookChannel(ChannelEx c);
     public boolean isOnline(User user);
 
-    public final static String HOST = "http://axlecho.me:5000/";
+    public final static String HOST = "http://axlecho.me/";
     public final static String PICCDN = "http://yiye.qiniudn.com/";
     public final static String PICSCALEPARAM = "?imageView2/0/w/400";
 
@@ -29,6 +29,7 @@ public interface YiyeApi {
 
     public final static String GETBOOKEDCHANNELS = "api/channel/all";
     public final static String GETBOOKMARKINCHANNEL = "api/bookmarks/init";
+    public final static String GETBOOKMARKSINCHANNELBYDATE = "api/bookmarks/oneDay";
     public final static String SEARCH = "api/discovery/";
     public final static String GETCHANNELBYPAGE = "api/home/discover"; // 按页获取书签
     public final static String BOOKCHANNEL = "channel/sub/";

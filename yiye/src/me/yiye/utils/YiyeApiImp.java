@@ -46,7 +46,7 @@ public class YiyeApiImp implements YiyeApi {
 
     @Override
     public List<BookMark> getBookMarksByChannelId(String channelId) {
-        String ret = NetworkUtil.get(context, YiyeApi.HOST + YiyeApi.GETBOOKMARKINCHANNEL, "?channelId=" + channelId);
+        String ret = NetworkUtil.get(context, YiyeApi.HOST + YiyeApi.GETBOOKMARKSINCHANNELBYDATE, "?channelId=" + channelId);
         if (ret == null) {
             MLog.e(TAG, "getBookMarksByChannel### network return null");
             return null;
@@ -57,15 +57,8 @@ public class YiyeApiImp implements YiyeApi {
         MLog.d(TAG, "getBookMarksByChannel### ret:" + ret);
         try {
             ret = java.net.URLDecoder.decode(ret, "UTF-8");
-            JSONObject o = new JSONObject(ret);
-            JSONArray list = o.getJSONArray("list");
-            JSONObject dlist = list.getJSONObject(0);
-            JSONArray dlistArray = dlist.getJSONArray("dList"); //
-
-            MLog.d(TAG, "getBookMarksByChannel### " + dlistArray.toString());
-            YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, dlistArray.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
+            MLog.d(TAG, "getBookMarksByChannel### " + ret);
+            YiyeApiHelper.addBookMarkToBookMarkList(context, bookmarkList, ret);
         } catch (UnsupportedEncodingException e) {
             errorString = YiyeApi.ERRORURLDECODE;
             MLog.e(TAG, "Url解码错误");
@@ -125,30 +118,17 @@ public class YiyeApiImp implements YiyeApi {
 
     @Override
     public String bookChannel(ChannelEx c) {
-        String ret = NetworkUtil.get(context, YiyeApi.HOST, YiyeApi.BOOKCHANNEL + c.id);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("channelId", c.id));
+        String ret = NetworkUtil.post(context, YiyeApi.HOST + YiyeApi.BOOKCHANNEL,params);
+
         if (ret == null) {
             MLog.e(TAG, "bookChannel### return null");
             return null;
         }
 
-        MLog.d(TAG, "bookChannel###network ret:" + ret);
-
-        String infoString = null;
-        try {
-            JSONObject o = new JSONObject(ret);
-            boolean success = o.getBoolean("success");
-            infoString = o.getString("info");
-            if (!success) {
-                errorString = infoString;
-                return null;
-            }
-        } catch (JSONException e) {
-            errorString = "解析json出错";
-            MLog.e(TAG,"getChannelByPage### 解析json出错");
-            e.printStackTrace();
-        }
-
-        return infoString;
+        return ret;
     }
 
     @Override

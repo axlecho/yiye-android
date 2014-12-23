@@ -101,13 +101,14 @@ class ChannelsListAdapter extends BaseAdapter {
 
         public ItemOnClickListener(ChannelEx c) {
             this.c = c;
+
         }
 
         private ChannelEx c;
 
         @Override
         public void onClick(View view) {
-            SearchFragment.bookChannel(context, c, new YiyeApiImp(context));
+            SearchFragment.bookChannel(context, c, new YiyeApiImp(context),ChannelsListAdapter.this);
         }
     }
 

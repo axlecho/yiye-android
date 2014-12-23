@@ -50,6 +50,9 @@ public class NetworkUtil {
             HttpPost httpRequest = new HttpPost(url);
             // 伪装成chrome
             httpRequest.addHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36");
+            SharedPreferences share = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
+            String headerCookie = share.getString("yiye", "");
+            httpRequest.addHeader("Cookie", headerCookie);
             httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
             HttpResponse httpResponse = httpClient.execute(httpRequest);
             int statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -64,15 +67,17 @@ public class NetworkUtil {
                 }
 
                 String data = retJson.getString("data");
-                Header header = httpResponse.getFirstHeader("set-cookie");
-                String cookie = header.getValue();
-                MLog.d("TAG", "post### cookie:" + cookie);
+                Header cookieHeader = httpResponse.getFirstHeader("set-cookie");
+                if(cookieHeader != null) {
+                    String cookie = cookieHeader.getValue();
+                    MLog.d("TAG", "post### cookie:" + cookie);
 
-                // 写入cookie
-                SharedPreferences sharedPreferences = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
-                Editor editor = sharedPreferences.edit();
-                editor.putString("yiye", cookie);
-                editor.commit();
+                    // 写入cookie
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("cookie", Context.MODE_PRIVATE);
+                    Editor editor = sharedPreferences.edit();
+                    editor.putString("yiye", cookie);
+                    editor.commit();
+                }
                 return data;
             } else {
                 MLog.e(TAG, "post### return status code:" + httpResponse.getStatusLine().getStatusCode());

@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -55,13 +57,14 @@ public class SearchFragment extends Fragment {
 
         channelsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView,final View view, final int pos, long l) {
                 new AlertDialog.Builder(SearchFragment.this.getActivity())
                         .setTitle("订阅书签")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                SearchFragment.bookChannel(SearchFragment.this.getActivity() ,channelsListAdapter.getItem(pos), new YiyeApiImp(SearchFragment.this.getActivity()));
+                                SearchFragment.bookChannel(SearchFragment.this.getActivity() ,channelsListAdapter.getItem(pos),
+                                        new YiyeApiImp(SearchFragment.this.getActivity()),channelsListAdapter);
                             }
                         })
                         .setNegativeButton("取消", null)
@@ -86,7 +89,7 @@ public class SearchFragment extends Fragment {
         mPullToRefreshLayout.setRefreshing(true);
     }
 
-    public static void bookChannel(final Context context,final ChannelEx c, final YiyeApi api) {
+    public static void bookChannel(final Context context,final ChannelEx c, final YiyeApi api,final ChannelsListAdapter adapter) {
 
         new AsyncTask<Void, Void, String>() {
 
@@ -103,8 +106,9 @@ public class SearchFragment extends Fragment {
 
             @Override
             protected void onPostExecute(String ret) {
-                //TODO 判断添加成功
-                Toast.makeText(context, "添加书签成功", Toast.LENGTH_LONG).show(); // 显示成功信息
+                Toast.makeText(context, "订阅成功", Toast.LENGTH_LONG).show(); // 显示成功信息
+                c.isAttention = true;
+                adapter.notifyDataSetChanged();
                 super.onPostExecute(ret);
             }
 
