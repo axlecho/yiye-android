@@ -163,6 +163,7 @@ public class BookMarkActivity extends BaseActivity {
                     public void onRefreshStarted(View view) {
                         MLog.d(TAG, "onRefreshStarted### refreshing url");
                         mWebView.reload();
+                        pullToRefreshLayout.setRefreshComplete();
                     }
                 })
                 .setup(pullToRefreshLayout);
