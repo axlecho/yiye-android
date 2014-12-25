@@ -53,11 +53,10 @@ public class MainActivity extends FragmentActivity {
     private String activityTitle;
     private String drawderTitile;
 
-    String[] planetTitles = new String[]{"首页", "发现", "关于", "设置"};
+    String[] planetTitles = new String[]{"首页", "发现", "设置"};
 
     int[] icos = new int[]{R.drawable.ic_drawer_home_normal,
             R.drawable.ic_drawer_explore_normal,
-            R.drawable.ic_drawer_about,
             R.drawable.ic_drawer_setting_normal};
 
     private View header;
@@ -124,9 +123,7 @@ public class MainActivity extends FragmentActivity {
                         activityFragment = new SearchFragment();
                         break;
                     case 3:
-                        activityFragment = new AboutFragment();
-                        break;
-                    case 4:
+                        activityFragment = new SettingFragment();
                         break;
                     default:
                         break;
