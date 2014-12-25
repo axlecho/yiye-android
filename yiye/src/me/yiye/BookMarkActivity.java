@@ -22,6 +22,10 @@ import me.yiye.contents.BookMark;
 import me.yiye.customwidget.ConstomWebView;
 import me.yiye.customwidget.SmoothProgressBar;
 import me.yiye.utils.MLog;
+import me.yiye.utils.YiyeApiImp;
+import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 public class BookMarkActivity extends BaseActivity {
 	private final static String TAG = "BookMarkActivity";
@@ -38,6 +42,7 @@ public class BookMarkActivity extends BaseActivity {
 	private ImageButton favourBtn;
 	private ImageButton shareBtn;
 
+    private PullToRefreshLayout pullToRefreshLayout;
     private OnTouchListener webviewTouchListener;
 
 	@Override
@@ -47,6 +52,7 @@ public class BookMarkActivity extends BaseActivity {
 		initActionbar(bookmark.title);
 		initWebView();
 		initBottomActionBar();
+        initPulltorefreshlayout();
 		mWebView.loadUrl(bookmark.url);
 	}
 	
@@ -147,7 +153,21 @@ public class BookMarkActivity extends BaseActivity {
 			}
 		});
 	}
-	
+
+    private void initPulltorefreshlayout() {
+        pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pulltorefreshlayout_bookmark);
+        ActionBarPullToRefresh.from(this)
+                .allChildrenArePullable()
+                .listener(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshStarted(View view) {
+                        MLog.d(TAG, "onRefreshStarted### refreshing url");
+                        mWebView.reload();
+                    }
+                })
+                .setup(pullToRefreshLayout);
+    }
+
 	// 支持网页回退
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
