@@ -132,6 +132,20 @@ public class YiyeApiImp implements YiyeApi {
     }
 
     @Override
+    public String unBookChannel(ChannelEx c) {
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("channelId", c.id));
+        String ret = NetworkUtil.post(context, YiyeApi.HOST + YiyeApi.UNBOOKCHANNEL,params);
+
+        if (ret == null) {
+            MLog.e(TAG, "bookChannel### return null");
+            return null;
+        }
+        return ret;
+    }
+
+    @Override
     public List<ChannelEx> search(String keyword) {
         String ret = NetworkUtil.get(context, YiyeApi.HOST, YiyeApi.SEARCH + "?keyword=" + keyword);
         if (ret == null) {

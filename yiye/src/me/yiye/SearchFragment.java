@@ -59,11 +59,11 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView,final View view, final int pos, long l) {
                 new AlertDialog.Builder(SearchFragment.this.getActivity())
-                        .setTitle("订阅书签")
+                        .setTitle("取消订阅书签")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                SearchFragment.bookChannel(SearchFragment.this.getActivity() ,channelsListAdapter.getItem(pos),
+                                SearchFragment.unBookChannel(SearchFragment.this.getActivity() ,channelsListAdapter.getItem(pos),
                                         new YiyeApiImp(SearchFragment.this.getActivity()),channelsListAdapter);
                             }
                         })
@@ -108,6 +108,37 @@ public class SearchFragment extends Fragment {
             protected void onPostExecute(String ret) {
                 Toast.makeText(context, "订阅成功", Toast.LENGTH_LONG).show(); // 显示成功信息
                 c.isAttention = true;
+                adapter.notifyDataSetChanged();
+                super.onPostExecute(ret);
+            }
+
+            @Override
+            protected void onCancelled() {
+                Toast.makeText(context, api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+                super.onCancelled();
+            }
+        }.execute();
+    }
+
+    public static void unBookChannel(final Context context,final ChannelEx c, final YiyeApi api,final ChannelsListAdapter adapter) {
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... v) {
+
+                String ret = api.unBookChannel(c);
+                if (ret == null) {
+                    cancel(false); // 网络异常 跳到onCancelled处理异常
+                }
+
+                return ret;
+            }
+
+            @Override
+            protected void onPostExecute(String ret) {
+                Toast.makeText(context, "取消订阅成功", Toast.LENGTH_LONG).show(); // 显示成功信息
+                c.isAttention = false;
                 adapter.notifyDataSetChanged();
                 super.onPostExecute(ret);
             }

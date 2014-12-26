@@ -17,6 +17,7 @@ public interface YiyeApi {
     public List<ChannelEx> search(String keyword);
     public List<ChannelEx> getChannelByPage(int i);
     public String bookChannel(ChannelEx c);
+    public String unBookChannel(ChannelEx c);
     public boolean isOnline(User user);
 
     public final static String HOST = "http://axlecho.me/";
@@ -33,6 +34,7 @@ public interface YiyeApi {
     public final static String SEARCH = "api/discovery/";
     public final static String GETCHANNELBYPAGE = "api/home/discover"; // 按页获取书签
     public final static String BOOKCHANNEL = "channel/sub/";
+    public final static String UNBOOKCHANNEL = "channel/noSub/";
 
     public String getError();
 

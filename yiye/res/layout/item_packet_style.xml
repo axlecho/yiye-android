@@ -13,6 +13,18 @@
         android:src="@drawable/ic_launcher"
         android:layout_centerVertical="true" />
 
+    <TextView
+        android:id="@+id/textview_packet_item_news"
+        android:background="@drawable/round_textview_style"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:text="@string/default_packetitem_newnumber_describe"
+        android:textColor="@color/WHITE"
+        android:textSize="12sp"
+        android:layout_alignTop="@id/imageview_packet_item_background"
+        android:layout_toRightOf="@id/imageview_packet_item_background"
+        android:gravity="center"
+        android:layout_marginLeft="-15dp" />
 
     <TextView
         android:id="@+id/textview_packet_item_notice"
@@ -39,16 +51,5 @@
         android:textColor="@color/Grey400"
         android:text="11-12" />
 
-    <TextView
-        android:id="@+id/textview_packet_item_news"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/default_packetitem_newnumber_describe"
-        android:textColor="@color/Grey300"
-        android:textSize="14sp"
-        android:layout_alignTop="@id/imageview_packet_item_background"
-        android:layout_toRightOf="@id/imageview_packet_item_background"
-        android:layout_marginTop="2dp"
-        android:gravity="center"
-        android:layout_marginLeft="-15dp" />
+
 </RelativeLayout>
