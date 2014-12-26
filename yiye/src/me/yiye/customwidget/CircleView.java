@@ -18,6 +18,8 @@ public class CircleView extends TextView {
 	public CircleView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		// TODO Auto-generated constructor stub
+        mBgPaint.setColor(Color.RED);
+        mBgPaint.setAntiAlias(true);
 	}
 
 	public CircleView(Context context, AttributeSet attrs) {
