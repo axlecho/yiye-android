@@ -23,14 +23,14 @@ public class CircleView extends TextView {
 	public CircleView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
-		mBgPaint.setColor(Color.WHITE);
+		mBgPaint.setColor(Color.RED);
 		mBgPaint.setAntiAlias(true);
 	}
 
 	public CircleView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
-		mBgPaint.setColor(Color.WHITE);
+		mBgPaint.setColor(Color.RED);
 		mBgPaint.setAntiAlias(true);
 	}
 
