@@ -50,19 +50,6 @@ public class CircleView extends TextView {
 		mBgPaint.setColor(color);
 	}
 
-	/**
-	 * 设置通知个数显示
-	 * @param text
-	 */
-	public void setNotifiText(int text){
-		//		if(text>99){
-		//			String string = 99+"+";
-		//			setText(string);
-		//			return;
-		//		}
-		setText(text+"");
-	}
-
 	@Override
 	public void draw(Canvas canvas) {
 		// TODO Auto-generated method stub
