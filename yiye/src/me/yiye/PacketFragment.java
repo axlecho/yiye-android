@@ -97,10 +97,11 @@ public class PacketFragment extends Fragment {
         freshdata(new YiyeApiOfflineImp(this.getActivity()), new OnFreshCompleteListener() {
             @Override
             public void freshComplete(List<Channel> list) {
-                if (list.size() == 0) { // 如果离线没有数据 ，加载网络数据
-                    MLog.i(TAG, "freshComplete### load data from network");
-                    freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
-                }
+                //if (list.size() == 0) { // 如果离线没有数据 ，加载网络数据
+                MLog.i(TAG, "freshComplete### load data from network");
+                mPullToRefreshLayout.setRefreshing(true);
+                freshdata(new YiyeApiImp(PacketFragment.this.getActivity()));
+                //}
 
             }
         });
