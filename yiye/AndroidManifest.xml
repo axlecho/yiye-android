@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.yiye"
-    android:versionCode="1"
-    android:versionName="1.0">
+    android:versionCode="2"
+    android:versionName="2.0">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,6 +22,15 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService"></service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
 
         <activity
             android:name=".SplashScreen"
@@ -74,8 +83,13 @@
             android:name=".PersonalActivity"
             android:launchMode="singleTask"
             android:theme="@style/NormalActivityTheme" />
-        <meta-data android:value="548010e5fd98c525e0000d1a" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="unknown" android:name="UMENG_CHANNEL"/>
+
+        <meta-data
+            android:value="548010e5fd98c525e0000d1a"
+            android:name="UMENG_APPKEY"></meta-data>
+        <meta-data
+            android:value="unknown"
+            android:name="UMENG_CHANNEL" />
     </application>
 
 </manifest>

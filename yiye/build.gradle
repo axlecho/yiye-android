@@ -13,6 +13,7 @@ dependencies {
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abs:+'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile files('libs/umeng-update-v2.4.2.jar')
 }
 
 android {
@@ -48,5 +49,16 @@ android {
         release {
             debuggable true
         }
+    }
+
+    task copyNativeLibs(type: Copy) {
+        from fileTree(dir: 'libs', include: 'armeabi/*.so') into 'build/lib'
+    }
+    tasks.withType(Compile) {
+        compileTask -> compileTask.dependsOn copyNativeLibs
+    }
+    clean.dependsOn 'cleanCopyNativeLibs'
+    tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+        pkgTask.jniFolders = [new File(buildDir, 'lib')]
     }
 }

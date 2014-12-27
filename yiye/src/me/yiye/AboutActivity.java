@@ -8,13 +8,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 import me.yiye.contents.BookMark;
+import me.yiye.utils.MLog;
 
 
 public class AboutActivity extends BaseActivity {
 
     private static final String TAG = "AboutActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,13 @@ public class AboutActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.btn_about_delectupdate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MLog.d(TAG, "onClick### update");
+                UmengUpdateAgent.forceUpdate(AboutActivity.this);
+            }
+        });
         // 设置版本号粗体
         TextView versionTextView = (TextView) findViewById(R.id.textview_about_version);
         versionTextView.getPaint().setFakeBoldText(true);
@@ -48,6 +58,7 @@ public class AboutActivity extends BaseActivity {
         MobclickAgent.onPageStart(TAG); //统计页面
         MobclickAgent.onResume(this);          //统计时长
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(TAG); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
