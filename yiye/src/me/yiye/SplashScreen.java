@@ -19,7 +19,6 @@ public class SplashScreen extends Activity {
     private ImageView slashBgImageView;
     private ImageView logoImageView;
     private Button loginBtn;
-    private View unLoginPad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +45,9 @@ public class SplashScreen extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (YiyeApplication.user != null) { //若已经登录，跳到主页
                     Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(intent);
                     SplashScreen.this.finish();
-                }
             }
 
             @Override
@@ -71,13 +68,6 @@ public class SplashScreen extends Activity {
         logoImageView = (ImageView)findViewById(R.id.imageview_splash_logo);
         logoImageView.setAnimation(fadeinAnimation);
 
-
-        unLoginPad = findViewById(R.id.view_splash_unlogin_pad);
-        if(YiyeApplication.user == null) {
-            logoImageView.setAnimation(fadeinnMoveUpAnimation);
-            unLoginPad.setAnimation(fadeinAnimation);
-            unLoginPad.setVisibility(View.VISIBLE);
-        }
         slashBgImageView.setVisibility(View.VISIBLE);
         logoImageView.setVisibility(View.VISIBLE);
     }

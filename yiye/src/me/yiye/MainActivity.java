@@ -61,11 +61,18 @@ public class MainActivity extends FragmentActivity {
 
     private View header;
     private MenuItem searchMenuItem;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Tools.getInstance().cleanActivityStack(); // 退出之前打开的activity 防止按返回键回到splashScreen或登录界面
         setContentView(R.layout.activity_main);
-        upDateMainFragment(new PacketFragment());
+        if (YiyeApplication.user == null) {
+            activityTitle = planetTitles[1];
+            upDateMainFragment(new SearchFragment());
+        } else {
+            upDateMainFragment(new PacketFragment());
+        }
+
         initDrawerLayout();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(true);
