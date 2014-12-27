@@ -20,7 +20,7 @@ public interface YiyeApi {
     public String unBookChannel(ChannelEx c);
     public boolean isOnline(User user);
 
-    public final static String HOST = "http://axlecho.me/";
+    public final static String HOST = "http://yiye.me/";
     public final static String PICCDN = "http://yiye.qiniudn.com/";
     public final static String PICSCALEPARAM = "?imageView2/0/w/400";
 
