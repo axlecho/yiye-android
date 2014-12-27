@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:padding="8dp">
+    android:layout_height="100dp"
+    android:padding="8dp"
+
+    >
 
     <com.makeramen.RoundedImageView
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:id="@+id/imageview_packet_item_background"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -13,18 +17,6 @@
         android:src="@drawable/ic_launcher"
         android:layout_centerVertical="true" />
 
-    <TextView
-        android:id="@+id/textview_packet_item_news"
-        android:background="@drawable/round_textview_style"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:text="@string/default_packetitem_newnumber_describe"
-        android:textColor="@color/WHITE"
-        android:textSize="12sp"
-        android:layout_alignTop="@id/imageview_packet_item_background"
-        android:layout_toRightOf="@id/imageview_packet_item_background"
-        android:gravity="center"
-        android:layout_marginLeft="-15dp" />
 
     <TextView
         android:id="@+id/textview_packet_item_notice"
@@ -51,5 +43,17 @@
         android:textColor="@color/Grey400"
         android:text="11-12" />
 
-
+    <TextView
+        android:id="@+id/textview_packet_item_news"
+        android:background="@drawable/round_textview_style"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:text="@string/default_packetitem_newnumber_describe"
+        android:textColor="@color/WHITE"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/imageview_packet_item_background"
+        android:gravity="top|center"
+        android:layout_marginLeft="-9dp"
+        />
 </RelativeLayout>

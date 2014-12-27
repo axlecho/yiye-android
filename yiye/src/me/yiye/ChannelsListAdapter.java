@@ -83,6 +83,9 @@ class ChannelsListAdapter extends BaseAdapter {
         if (c.isAttention) {
             channelBookBtn.setText(context.getResources().getString(R.string.booked_decribe));
             channelBookBtn.setEnabled(false);
+        } else {
+            channelBookBtn.setText(context.getResources().getString(R.string.book_decribe));
+            channelBookBtn.setEnabled(true);
         }
         channelBookBtn.setOnClickListener(new ItemOnClickListener(this.getItem(pos)));
         return v;

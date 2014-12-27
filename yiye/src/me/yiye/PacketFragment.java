@@ -155,11 +155,11 @@ public class PacketFragment extends Fragment {
 			channelNameTextView.setText(c.name);
 			newsTextView = (TextView) v.findViewById(R.id.textview_packet_item_news);
 			newsTextView.setText(c.news + "");
-//            if(c.news > 0) {
-//                newsTextView.setVisibility(View.VISIBLE);
-//            } else {
-//                newsTextView.setVisibility(View.GONE);
-//            }
+            if(c.news > 0) {
+                newsTextView.setVisibility(View.VISIBLE);
+            } else {
+                newsTextView.setVisibility(View.GONE);
+            }
             DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
             DateFormat fmt2 = new SimpleDateFormat("MM-dd", Locale.CHINA);
             String timeString = c.lastTime;
