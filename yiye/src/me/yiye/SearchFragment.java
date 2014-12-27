@@ -180,8 +180,13 @@ public class SearchFragment extends Fragment {
 
             @Override
             protected void onCancelled() {
-                Toast.makeText(SearchFragment.this.getActivity(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
-                mPullToRefreshLayout.setRefreshComplete();
+                try {
+                    Toast.makeText(SearchFragment.this.getActivity().getApplicationContext(), api.getError(), Toast.LENGTH_LONG).show(); // 异常提示
+                    mPullToRefreshLayout.setRefreshComplete();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    MLog.e(TAG,"Fragment is closed");
+                }
                 super.onCancelled();
             }
         }.execute();

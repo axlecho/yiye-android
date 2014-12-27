@@ -91,11 +91,12 @@ public class ChannelActivity extends BaseActivity {
         freshdata(new YiyeApiOfflineImp(this), new OnFreshCompleteListener() {
             @Override
             public void freshComplete(List<BookMark> list) {
-                if (list.size() == 0) { // 如果离线没有数据 ，加载网络数据
-                    MLog.i(TAG, "freshComplete### load data from network");
-                    pullToRefreshLayout.setRefreshing(true);
-                    freshdata(new YiyeApiImp(ChannelActivity.this));
-                }
+                //if (list.size() == 0) { // 如果离线没有数据 ，加载网络数据
+                // 刷新在线数据
+                MLog.i(TAG, "freshComplete### load data from network");
+                pullToRefreshLayout.setRefreshing(true);
+                freshdata(new YiyeApiImp(ChannelActivity.this));
+                //}
             }
         });
     }
