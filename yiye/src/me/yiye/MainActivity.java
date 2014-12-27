@@ -121,10 +121,20 @@ public class MainActivity extends FragmentActivity {
                 Fragment activityFragment = null;
                 switch (pos) {
                     case 0:
+                        if(YiyeApplication.user == null) {
+                            LoginManagerActivity.launch(MainActivity.this);
+                            break;
+                        }
+
                         PersonalActivity.launch(MainActivity.this);
                         break;
                     case 1:
+                        if(YiyeApplication.user == null) {
+                            LoginManagerActivity.launch(MainActivity.this);
+                            break;
+                        }
                         activityFragment = new PacketFragment();
+
                         break;
                     case 2:
                         activityFragment = new SearchFragment();
@@ -152,7 +162,7 @@ public class MainActivity extends FragmentActivity {
 
     protected void onStart() {
         super.onStart();
-
+        setUserInfo();
     }
 
     private void upDateMainFragment(Fragment packetFragment) {
